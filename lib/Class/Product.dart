@@ -2,10 +2,17 @@ class Product{
   String _name= '';
   int _id=0;
   String _image ='';
+  String _description = '';
   List<String> _list=[''];
 
 
-  Product(this._name, this._id, this._image, this._list);
+  Product(this._name, this._id, this._image, this._description, this._list);
+
+  String get description => _description;
+
+  set description(String value) {
+    _description = value;
+  }
 
   String get image => _image;
 

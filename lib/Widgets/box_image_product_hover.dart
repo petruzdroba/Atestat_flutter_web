@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_club_blaga/Class/MenuOption.dart';
 import 'package:flutter_club_blaga/Class/Product.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 
@@ -54,44 +53,86 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                 const Expanded(child: SizedBox())
               ],
             ),
-            Expanded(
-                child: AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            stops: [
-                          !didHover ? 0.40 : 0.55,
-                          1.0
-                        ],
-                            colors: [
-                          !didHover ? colorOffBlack : colorPureBlack,
-                          Colors.transparent
-                        ]
-                        )
-                    ),
-                  child: Row(
-                    children: [
-                      const Expanded(flex:10,child: SizedBox()),
-                      Expanded(flex:!didHover? 4:5,child: Padding(
-                        padding:  EdgeInsets.all( !didHover? 15.0: 20.0),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerRight,
+                      end: Alignment.centerLeft,
+                      stops: [
+                    !didHover ? 0.40 : 0.55,
+                    1.0
+                  ],
+                      colors: [
+                    !didHover ? colorOffBlack : colorPureBlack,
+                    Colors.transparent
+                  ])),
+              child: Row(
+                children: [
+                  const Expanded(flex: 7, child: SizedBox()),
+                  Expanded(
+                      flex: !didHover ? 4 : 7,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: !didHover ? 15.0 : 20.0,
+                            bottom: !didHover ? 15.0 : 20.0,
+                            right: !didHover ? 15.0 : 20.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              widget.product.name,
+                            AnimatedDefaultTextStyle(
+                              duration: const Duration(milliseconds: 220),
                               style: TextStyle(
-                                color: !didHover ? colorOffWhite: colorLightPurple,
-                                fontSize: !didHover ? 18: 20,
+                                color: !didHover
+                                    ? colorOffWhite
+                                    : colorLightPurple,
+                                fontSize: !didHover ? 18 : 20,
+                                fontWeight: !didHover
+                                    ? FontWeight.normal
+                                    : FontWeight.bold,
                               ),
-                            )
+                              child: Text(
+                                widget.product.name,
+                                softWrap: true,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            AnimatedDefaultTextStyle(
+                              duration: const Duration(milliseconds: 220),
+                              style: TextStyle(
+                                color: !didHover ? colorGray : colorOffWhite,
+                                fontSize: !didHover ? 12 : 14,
+                              ),
+                              child: Text(
+                                !didHover
+                                    ? '${widget.product.description.substring(0, 75)}(...)'
+                                    : widget.product.description,
+                                softWrap: true,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            AnimatedDefaultTextStyle(
+                              duration: const Duration(milliseconds: 220),
+                              style: TextStyle(
+                                color: !didHover ? colorLightPurple: colorPureWhite,
+                                fontSize: !didHover? 14:12,
+                                fontWeight: !didHover ? FontWeight.normal : FontWeight.bold,
+                              ),
+                              child: Text(
+                                '${widget.product.list.first} vs. ${widget.product.list.last}',
+                                softWrap: true,
+                              ),
+                            ),
                           ],
                         ),
                       ))
-                    ],
-                  ),
-                )
+                ],
+              ),
             )
           ],
         ),
