@@ -18,7 +18,7 @@ final routerDelegate = BeamerDelegate(
   notFoundPage: BeamPage(
     key: const ValueKey('ErrorPage'),
     title: 'Not found',
-    child: ErrorPage(),
+    child: ErrorPage('Error - Page not found!'),
   ),
   locationBuilder: RoutesLocationBuilder(
     routes: {
@@ -46,7 +46,7 @@ final routerDelegate = BeamerDelegate(
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const LoadingBarCube();
               } else if (snapshot.hasError) {
-                return ErrorPage();
+                return ErrorPage('Error - Loading not possible!');
               } else {
                 final response = snapshot.data;
                 List<Product> products = (jsonDecode(response!.body) as List)
@@ -73,7 +73,7 @@ final routerDelegate = BeamerDelegate(
           return BeamPage(
             key: const ValueKey('ErrorPage'),
             title: 'Error',
-            child: ErrorPage(),
+            child: ErrorPage('Error - product not available!'),
           );
         }
       },

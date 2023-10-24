@@ -2,110 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/Product.dart';
 import 'package:flutter_club_blaga/Widgets/box_image_product_hover.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../Class/MenuOption.dart';
-
-// List<Product> shopProductList = [
-//   Product(
-//       'Cristiano Ronaldo',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl/f_auto/primary/ydk9vatpnihwfquy6zq3',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['Real Madrid', 'FC Barcelona']),
-//   Product(
-//       'Lionel Messi',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['Real Madrid', 'FC Barcelona']),
-//   Product(
-//       'Sergio Ramos',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl/f_auto/primary/ydk9vatpnihwfquy6zq3',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['Real Madrid', 'FC Barcelona']),
-//   Product(
-//       'Long ass name to test how this shit fits',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['Real Madrid', 'FC Barcelona']),
-//   Product(
-//       'Name One',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['Real Madrid', 'FC Barcelona']),
-//   Product(
-//       'Name Two',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl/f_auto/primary/ydk9vatpnihwfquy6zq3',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['Real Madrid', 'FC Barcelona']),
-//   Product(
-//       'Name Three',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'Name Four',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'name',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl/f_auto/primary/ydk9vatpnihwfquy6zq3',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'name',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'name',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl/f_auto/primary/ydk9vatpnihwfquy6zq3',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'name',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'name',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'name',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'name',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-//   Product(
-//       'name',
-//       0,
-//       'https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_md_2x/f_auto/primary/ngdjbafv3twathukjbq2',
-//       'Two teams face off in an electrifying football match, battling for victory on the pitch. Amidst a roaring crowd, players showcase their skills, teamwork, and determination in a high-stakes football match, where every pass, shot, and goal matters.',
-//       ['a']),
-// ];
+import '../Widgets/Style/colors_style.dart';
 
 class ShopPage extends StatefulWidget {
-  List<MenuOption> _menuOptions = options;
+  final List<MenuOption> _menuOptions = options;
   final List<Product> shopProductList;
 
   ShopPage(this.shopProductList, {super.key});
@@ -115,6 +17,48 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
+  int currentPage = 0;
+  int itemsPerPage = 18; // Adjust the number of items per page as needed
+  final ScrollController _scrollController = ScrollController();
+  List<Product> visibleProducts = [];
+  bool isLoadingMore = false; // Add this flag
+
+  @override
+  void initState() {
+    super.initState();
+    _loadNextPage();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadNextPage() async {
+    if (isLoadingMore) return; // Prevent multiple requests
+
+    final start = currentPage * itemsPerPage;
+    final end = (currentPage + 1) * itemsPerPage;
+
+    if (start < widget.shopProductList.length) {
+      final nextProducts = widget.shopProductList.sublist(start, end);
+      setState(() {
+        isLoadingMore = false;
+        visibleProducts.addAll(nextProducts);
+        currentPage++;
+      });
+    }
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      _loadNextPage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,15 +74,27 @@ class _ShopPageState extends State<ShopPage> {
               child: Padding(
                 padding: const EdgeInsets.all(50.0),
                 child: SingleChildScrollView(
+                  controller: _scrollController,
                   scrollDirection: Axis.vertical,
-                  child: Wrap(
-                      direction: Axis.horizontal,
-                      alignment: WrapAlignment.start,
-                      spacing: 16.0,
-                      runSpacing: 20.0,
-                      children: widget.shopProductList.map((product) {
-                        return BoxImageProductHover(product);
-                      }).toList()),
+                  child: Column(
+                    children: [
+                      Wrap(
+                        direction: Axis.horizontal,
+                        alignment: WrapAlignment.start,
+                        spacing: 16.0,
+                        runSpacing: 20.0,
+                        children: visibleProducts.map((product) {
+                          return BoxImageProductHover(product);
+                        }).toList(),
+                      ),
+                      if (isLoadingMore)
+                        SpinKitFadingCube(
+                          color: colorLightPurple,
+                          duration: const Duration(milliseconds: 400),
+                          size: 10.0,
+                        ),
+                    ],
+                  ),
                 ),
               ),
             )

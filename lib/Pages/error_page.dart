@@ -6,12 +6,13 @@ import '../Class/MenuOption.dart';
 
 class ErrorPage extends StatefulWidget {
   List<MenuOption> _menuOptions = options;
+  final String errorMessage;
 
   set menuOptions(List<MenuOption> value) {
     _menuOptions = value;
   }
 
-  ErrorPage({super.key});
+  ErrorPage(this.errorMessage, {super.key});
 
   @override
   State<ErrorPage> createState() => _ErrorPageState();
@@ -32,7 +33,7 @@ class _ErrorPageState extends State<ErrorPage> {
               flex: 9,
               child: Center(
                 child: Text(
-                  'Error - Page not found!',
+                  widget.errorMessage,
                   style: TextStyle(
                     color: colorOffWhite,
                     fontSize: 50,
