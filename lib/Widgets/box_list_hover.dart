@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Pages/homepage.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:beamer/beamer.dart';
+
+import '../Service/Routes.dart';
 
 
 class BoxListHover extends StatefulWidget {
@@ -25,7 +28,11 @@ class _BoxListHoverState extends State<BoxListHover> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Beamer.of(context).beamToNamed(widget.route);
+        if (widget._currentRoute == '/error') {
+          Beamer.of(context).beamToNamed(widget.route, replaceRouteInformation: true);
+        } else {
+          Beamer.of(context).popToNamed(widget.route); // Navigate to the desired route
+        }
       },
       child: MouseRegion(
         onEnter: (f){
