@@ -1,11 +1,16 @@
+import 'dart:convert';
 import 'dart:js';
 
 import 'package:beamer/beamer.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
+import 'package:flutter_club_blaga/Service/product_service.dart';
+import 'package:http/http.dart';
 
+import '../Class/Product.dart';
 import '../Pages/example.dart';
 import '../Pages/homepage.dart';
 import '../Pages/shop_page.dart';
@@ -37,7 +42,22 @@ final routerDelegate = BeamerDelegate(
         return BeamPage(
           key: const ValueKey("shop"),
           title: 'Shop Page',
-          child: ShopPage(),
+          child: FutureBuilder(
+            future: getProductList(),
+            builder: (context, AsyncSnapshot<Response> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator(); // You can use a loading indicator here.
+              } else if (snapshot.hasError) {
+                return ErrorPage(); // Handle error case
+              } else {
+                final response = snapshot.data;
+                List<Product> products = (jsonDecode(response!.body) as List)
+                    .map((e) => Product.fromJson(e))
+                    .toList();
+                return ShopPage(products);
+              }
+            },
+          ),
         );
       },
       '/shop/:product':(context, state, data){
@@ -57,7 +77,6 @@ final routerDelegate = BeamerDelegate(
             title: 'Error',
             child: ErrorPage(),
           );
-
         }
       },
     },

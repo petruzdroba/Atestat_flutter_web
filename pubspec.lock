@@ -10,7 +10,7 @@ packages:
     source: hosted
     version: "2.11.0"
   beamer:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: beamer
       sha256: "1bd43904b62f322eb40aaa47aac463d7d6dd300cdfb8c71401105362c4501f43"
@@ -89,7 +89,7 @@ packages:
     source: sdk
     version: "0.0.0"
   http:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: http
       sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"

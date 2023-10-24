@@ -37,4 +37,15 @@ class Product{
   set name(String value) {
     _name = value;
   }
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      json['name'] ?? '',
+      json['id'] ?? 0,
+      json['image'] ?? '',
+      json['description'] ?? '',
+      (json['list'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [''],
+    );
+  }
+
 }
