@@ -1,13 +1,11 @@
 import 'dart:convert';
-import 'dart:js';
 
 import 'package:beamer/beamer.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
 import 'package:flutter_club_blaga/Service/product_service.dart';
+import 'package:flutter_club_blaga/Widgets/loading_bar_cube.dart';
 import 'package:http/http.dart';
 
 import '../Class/Product.dart';
@@ -46,9 +44,9 @@ final routerDelegate = BeamerDelegate(
             future: getProductList(),
             builder: (context, AsyncSnapshot<Response> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator(); // You can use a loading indicator here.
+                return const LoadingBarCube();
               } else if (snapshot.hasError) {
-                return ErrorPage(); // Handle error case
+                return ErrorPage();
               } else {
                 final response = snapshot.data;
                 List<Product> products = (jsonDecode(response!.body) as List)
