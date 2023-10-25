@@ -4,16 +4,14 @@ import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 
 class WidgetButtonHover extends StatefulWidget {
 
-  bool didHover = false;
-
-  WidgetButtonHover({super.key});
+  const WidgetButtonHover({super.key});
 
   @override
   State<WidgetButtonHover> createState() => _WidgetButtonHoverState();
 }
 
 class _WidgetButtonHoverState extends State<WidgetButtonHover> {
-  get didHover => widget.didHover;
+  bool didHover = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +24,12 @@ class _WidgetButtonHoverState extends State<WidgetButtonHover> {
       child: MouseRegion(
         onEnter: (f){
           setState(() {
-            widget.didHover= true;
+            didHover= true;
           });
         },
         onExit: (f){
           setState(() {
-            widget.didHover= false;
+            didHover= false;
           });
         },
         child: AnimatedContainer(

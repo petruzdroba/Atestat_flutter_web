@@ -29,11 +29,11 @@ final routerDelegate = BeamerDelegate(
           title: 'Chief Sosa',
           child: HomePage(),
         );
-      }, //sunt fullstack acum
+      },
       '/example': (context, state, data) {
         return const BeamPage(
           key: ValueKey("example"),
-          title: 'Zdroba bss',
+          title: 'Example page',
           child: ExamplePage(),
         );
       },

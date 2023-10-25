@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/Product.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
@@ -5,32 +6,31 @@ import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 class BoxImageProductHover extends StatefulWidget {
   final Product product;
 
-  bool didHover = false;
-
-  BoxImageProductHover(this.product, {super.key});
+  const BoxImageProductHover(this.product, {super.key});
 
   @override
   State<BoxImageProductHover> createState() => _BoxImageProductHoverState();
 }
 
 class _BoxImageProductHoverState extends State<BoxImageProductHover> {
-  get didHover => widget.didHover;
+  bool didHover = false;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-
+      onTap: () {
+        Beamer.of(context)
+            .popToNamed('/shop/product${widget.product.id.toString()}');
       },
       child: MouseRegion(
         onEnter: (f) {
           setState(() {
-            widget.didHover = true;
+            didHover = true;
           });
         },
         onExit: (f) {
           setState(() {
-            widget.didHover = false;
+            didHover = false;
           });
         },
         child: AnimatedContainer(
@@ -123,9 +123,13 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                               AnimatedDefaultTextStyle(
                                 duration: const Duration(milliseconds: 220),
                                 style: TextStyle(
-                                  color: !didHover ? colorLightPurple: colorPureWhite,
-                                  fontSize: !didHover? 14:12,
-                                  fontWeight: !didHover ? FontWeight.normal : FontWeight.bold,
+                                  color: !didHover
+                                      ? colorLightPurple
+                                      : colorPureWhite,
+                                  fontSize: !didHover ? 14 : 12,
+                                  fontWeight: !didHover
+                                      ? FontWeight.normal
+                                      : FontWeight.bold,
                                 ),
                                 child: Text(
                                   '${widget.product.list.first} vs. ${widget.product.list.last}',

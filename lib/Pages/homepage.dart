@@ -5,19 +5,15 @@ import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 import '../Class/MenuOption.dart';
 
 class HomePage extends StatefulWidget {
-  List<MenuOption> _menuOptions = options;
 
-  set menuOptions(List<MenuOption> value) {
-    _menuOptions = value;
-  }
-
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<MenuOption> _menuOptions = options;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +23,8 @@ class _HomePageState extends State<HomePage> {
         color: Colors.black87,
         child: Row(
           children: [
-            SideNavigationBar(widget._menuOptions, '/home'),
-            Expanded(
+            SideNavigationBar(_menuOptions, '/home'),
+            const Expanded(
               flex: 9,
               child: Center(
                 child: WidgetButtonHover(),

@@ -5,33 +5,32 @@ class IconHoverAction extends StatefulWidget {
   final IconData icon;
   final Function function;
 
-  bool didHover = false;
-
-  IconHoverAction(this.icon,this.function,{super.key});
+  const IconHoverAction(this.icon, this.function, {super.key});
 
   @override
   State<IconHoverAction> createState() => _IconHoverActionState();
 }
 
 class _IconHoverActionState extends State<IconHoverAction> {
-  get didHover => widget.didHover;
+  bool didHover = false;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         setState(() {
           widget.function();
         });
       },
       child: MouseRegion(
-        onEnter: (f){
+        onEnter: (f) {
           setState(() {
-            widget.didHover= true;
+            didHover = true;
           });
         },
-        onExit: (f){
+        onExit: (f) {
           setState(() {
-            widget.didHover= false;
+            didHover = false;
           });
         },
         child: SizedBox(
@@ -40,7 +39,7 @@ class _IconHoverActionState extends State<IconHoverAction> {
           child: Icon(
             widget.icon,
             size: 50,
-            color: !didHover?colorOffWhite:colorLightPurple,
+            color: !didHover ? colorOffWhite : colorLightPurple,
           ),
         ),
       ),

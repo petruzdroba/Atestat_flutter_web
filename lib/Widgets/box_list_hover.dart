@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_club_blaga/Pages/homepage.dart';
-import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:beamer/beamer.dart';
-
-import '../Service/Routes.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 
 
 class BoxListHover extends StatefulWidget {
@@ -13,17 +10,15 @@ class BoxListHover extends StatefulWidget {
   final String route;
   final String _currentRoute;
 
-  bool didHover = false;
-
-  BoxListHover(this.menuOption,this.optionIcon, this.route, this._currentRoute, {super.key});
+  const BoxListHover(this.menuOption,this.optionIcon, this.route, this._currentRoute, {super.key});
 
   @override
   State<BoxListHover> createState() => _BoxListHoverState();
 }
 
 class _BoxListHoverState extends State<BoxListHover> {
+  bool didHover = false;
   String get menuOption => widget.menuOption;
-  get didHover => widget.didHover;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -37,12 +32,12 @@ class _BoxListHoverState extends State<BoxListHover> {
       child: MouseRegion(
         onEnter: (f){
           setState(() {
-            widget.didHover= true;
+            didHover= true;
           });
         },
         onExit: (f){
           setState(() {
-            widget.didHover= false;
+            didHover= false;
           });
         },
         child: AnimatedContainer(

@@ -5,20 +5,17 @@ import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 import '../Class/MenuOption.dart';
 
 class ErrorPage extends StatefulWidget {
-  List<MenuOption> _menuOptions = options;
+
   final String errorMessage;
 
-  set menuOptions(List<MenuOption> value) {
-    _menuOptions = value;
-  }
-
-  ErrorPage(this.errorMessage, {super.key});
+  const ErrorPage(this.errorMessage, {super.key});
 
   @override
   State<ErrorPage> createState() => _ErrorPageState();
 }
 
 class _ErrorPageState extends State<ErrorPage> {
+  final List<MenuOption> _menuOptions = options;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +25,7 @@ class _ErrorPageState extends State<ErrorPage> {
         color: Colors.black87,
         child: Row(
           children: [
-            SideNavigationBar(widget._menuOptions, '/error'),
+            SideNavigationBar(_menuOptions, '/error'),
             Expanded(
               flex: 9,
               child: Center(
