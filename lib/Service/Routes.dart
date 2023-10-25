@@ -9,6 +9,7 @@ import 'package:flutter_club_blaga/Widgets/loading_bar_cube.dart';
 import 'package:http/http.dart';
 
 import '../Class/Product.dart';
+import '../Class/ProductDetails.dart';
 import '../Pages/example.dart';
 import '../Pages/homepage.dart';
 import '../Pages/shop_page.dart';
@@ -66,7 +67,25 @@ final routerDelegate = BeamerDelegate(
               key: ValueKey('Shop-$product'),
               title: 'Shop - $product',
               popToNamed: '/shop',
-              child: ProductDetailed(),
+              child: FutureBuilder(
+                future: getProductDetails(),
+                builder: (context, AsyncSnapshot<Response> snapshot){
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const LoadingBarCube(75.0, 1000);
+                  } else if (snapshot.hasError) {
+                    return ErrorPage('Error - Loading not possible!');
+                  } else {
+                    final Response response = snapshot.data as Response;
+                    if (response.statusCode == 200) {
+                      final Map<String, dynamic> responseData = jsonDecode(response.body) as Map<String, dynamic>;
+                      ProductDetails product = ProductDetails.fromJson(responseData);
+                      return ProductDetailed(product);
+                    } else {
+                      return ErrorPage('Error - HTTP request failed with status ${response.statusCode}');
+                    }
+                  }
+                }
+              ),
             );
           }
         else {

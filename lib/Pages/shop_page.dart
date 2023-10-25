@@ -3,9 +3,8 @@ import 'package:flutter_club_blaga/Class/Product.dart';
 import 'package:flutter_club_blaga/Widgets/box_image_product_hover.dart';
 import 'package:flutter_club_blaga/Widgets/loading_bar_cube.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import '../Class/MenuOption.dart';
-import '../Widgets/Style/colors_style.dart';
 
 class ShopPage extends StatefulWidget {
   final List<MenuOption> _menuOptions = options;
@@ -19,10 +18,10 @@ class ShopPage extends StatefulWidget {
 
 class _ShopPageState extends State<ShopPage> {
   int currentPage = 0;
-  int itemsPerPage = 18; // Adjust the number of items per page as needed
+  int itemsPerPage = 18;
   final ScrollController _scrollController = ScrollController();
   List<Product> visibleProducts = [];
-  bool isLoadingMore = false; // Add this flag
+  bool isLoadingMore = false;
 
   @override
   void initState() {
