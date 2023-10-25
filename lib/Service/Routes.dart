@@ -63,22 +63,26 @@ final routerDelegate = BeamerDelegate(
         var product = state.pathParameters['product'];
         if (product!.contains('product')) {
           product = product.replaceFirst('product', '');
-          return Builder(
-            builder: (context) {
-              return FutureBuilder<ProductDetails>(
-                future: postIdGetProductDetails(int.parse(product!)),
-                builder: (context, AsyncSnapshot<ProductDetails> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const LoadingBarCube(75.0, 1000);
-                  } else if (snapshot.hasError) {
-                    return ErrorPage('Error - Loading not possible!');
-                  } else {
-                    final productFromData = snapshot.data;
-                    return ProductDetailed(productFromData!);
-                  }
-                },
-              );
-            },
+          return BeamPage(
+            key:  ValueKey('product$product'),
+            title: 'product$product',
+            child: Builder(
+              builder: (context) {
+                return FutureBuilder<ProductDetails>(
+                  future: postIdGetProductDetails(int.parse(product!)),
+                  builder: (context, AsyncSnapshot<ProductDetails> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const LoadingBarCube(75.0, 1000);
+                    } else if (snapshot.hasError) {
+                      return ErrorPage('Error - Loading not possible!');
+                    } else {
+                      final productFromData = snapshot.data;
+                      return ProductDetailed(productFromData!);
+                    }
+                  },
+                );
+              },
+            ),
           );
         } else {
           return BeamPage(
