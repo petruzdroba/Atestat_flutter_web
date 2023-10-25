@@ -59,36 +59,28 @@ final routerDelegate = BeamerDelegate(
           ),
         );
       },
-      '/shop/:product':(context, state, data){
-        final product = state.pathParameters['product'];
-        if(product!.contains('product'))
-          {
-            return BeamPage(
-              key: ValueKey('Shop-$product'),
-              title: 'Shop - $product',
-              popToNamed: '/shop',
-              child: FutureBuilder(
-                future: getProductDetails(),
-                builder: (context, AsyncSnapshot<Response> snapshot){
+      '/shop/:product': (context, state, data) {
+        var product = state.pathParameters['product'];
+        if (product!.contains('product')) {
+          product = product.replaceFirst('product', '');
+          return Builder(
+            builder: (context) {
+              return FutureBuilder<ProductDetails>(
+                future: postIdGetProductDetails(int.parse(product!)),
+                builder: (context, AsyncSnapshot<ProductDetails> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const LoadingBarCube(75.0, 1000);
                   } else if (snapshot.hasError) {
                     return ErrorPage('Error - Loading not possible!');
                   } else {
-                    final Response response = snapshot.data as Response;
-                    if (response.statusCode == 200) {
-                      final Map<String, dynamic> responseData = jsonDecode(response.body) as Map<String, dynamic>;
-                      ProductDetails product = ProductDetails.fromJson(responseData);
-                      return ProductDetailed(product);
-                    } else {
-                      return ErrorPage('Error - HTTP request failed with status ${response.statusCode}');
-                    }
+                    final productFromData = snapshot.data;
+                    return ProductDetailed(productFromData!);
                   }
-                }
-              ),
-            );
-          }
-        else {
+                },
+              );
+            },
+          );
+        } else {
           return BeamPage(
             key: const ValueKey('ErrorPage'),
             title: 'Error',
