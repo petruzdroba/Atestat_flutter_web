@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/Product.dart';
 import 'package:flutter_club_blaga/Widgets/box_image_product_hover.dart';
+import 'package:flutter_club_blaga/Widgets/loading_bar_cube.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../Class/MenuOption.dart';
@@ -88,11 +89,7 @@ class _ShopPageState extends State<ShopPage> {
                         }).toList(),
                       ),
                       if (isLoadingMore)
-                        SpinKitFadingCube(
-                          color: colorLightPurple,
-                          duration: const Duration(milliseconds: 400),
-                          size: 10.0,
-                        ),
+                        const LoadingBarCube(10.0, 400),
                     ],
                   ),
                 ),

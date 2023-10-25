@@ -44,7 +44,7 @@ final routerDelegate = BeamerDelegate(
             future: getProductList(),
             builder: (context, AsyncSnapshot<Response> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const LoadingBarCube();
+                return const LoadingBarCube(75.0, 1000);
               } else if (snapshot.hasError) {
                 return ErrorPage('Error - Loading not possible!');
               } else {

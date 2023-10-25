@@ -4,7 +4,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'Style/colors_style.dart';
 
 class LoadingBarCube extends StatelessWidget {
-  const LoadingBarCube({super.key});
+  final double size;
+  final int duration;
+  const LoadingBarCube(this.size, this.duration,{super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,8 @@ class LoadingBarCube extends StatelessWidget {
       color: Colors.black87,
       child: SpinKitFadingCube(
         color: colorLightPurple,
-        duration: const Duration(milliseconds: 1000),
-        size:75.0, // Change to your desired size
+        duration: Duration(milliseconds: duration),
+        size:size, // Change to your desired size
       ),
     );
   }
