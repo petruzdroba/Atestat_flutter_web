@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ExamplePage extends StatelessWidget {
-  const ExamplePage({super.key});
+  const ExamplePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

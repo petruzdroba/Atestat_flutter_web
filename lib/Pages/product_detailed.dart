@@ -8,6 +8,7 @@ import 'package:flutter_club_blaga/Widgets/icon_hover_action.dart';
 import 'package:flutter_club_blaga/Widgets/text_hover_color_size.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+
 import '../Class/MenuOption.dart';
 import '../Widgets/navigation_bar.dart';
 
@@ -71,7 +72,8 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                             setState(() {
                                               activeIndex = index;
                                             });
-                                          }))),
+                                          }))
+                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

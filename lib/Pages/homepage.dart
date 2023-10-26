@@ -1,11 +1,13 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_club_blaga/Widgets/button_hover.dart';
+import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
+import 'package:flutter_club_blaga/Widgets/gif_display.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
+import 'package:flutter_club_blaga/Widgets/text_hover_color_size.dart';
 
 import '../Class/MenuOption.dart';
 
 class HomePage extends StatefulWidget {
-
   const HomePage({super.key});
 
   @override
@@ -14,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<MenuOption> _menuOptions = options;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,10 +27,34 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           children: [
             SideNavigationBar(_menuOptions, '/home'),
-            const Expanded(
+            Expanded(
               flex: 9,
-              child: Center(
-                child: WidgetButtonHover(),
+              child: Stack(
+                children: [
+                  const GifDisplay('lib/Widgets/Style/assets/gif.gif'),
+                  Padding(
+                    padding: const EdgeInsets.all(35.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Home',
+                          style: TextStyle(
+                            color: colorOffWhite,
+                            fontSize: 75,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
+                          ),
+                        ),
+                        InkWell(onTap: (){
+                          Beamer.of(context)
+                              .popToNamed('/shop/product$mostPopularItemId');
+                        },
+                            child: TextHoverColorSize('Most popular item', 60, colorOffBlack, colorPureBlack))
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ],

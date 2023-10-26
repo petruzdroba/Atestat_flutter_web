@@ -5,6 +5,7 @@ import 'package:flutter_club_blaga/Widgets/loading_bar_cube.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 
 import '../Class/MenuOption.dart';
+import '../Widgets/Style/colors_style.dart';
 
 class ShopPage extends StatefulWidget {
   final List<MenuOption> _menuOptions = options;
@@ -77,7 +78,18 @@ class _ShopPageState extends State<ShopPage> {
                   controller: _scrollController,
                   scrollDirection: Axis.vertical,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        'Shop',
+                        style: TextStyle(
+                            color: colorOffWhite,
+                            fontSize: 75,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
+                        ),
+                      ),
+                      const SizedBox(height: 25,),
                       Wrap(
                         direction: Axis.horizontal,
                         alignment: WrapAlignment.start,

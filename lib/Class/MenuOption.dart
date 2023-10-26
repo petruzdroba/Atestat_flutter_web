@@ -8,8 +8,10 @@ class MenuOption {
   MenuOption(this.option, this.icon, this.route);
 }
 
+int mostPopularItemId = 20051511;
+
 List<MenuOption> options = [
-  MenuOption('Menu', Icons.menu, '/home'),
+  MenuOption('Home', Icons.home, '/home'),
   MenuOption('Profile', Icons.person, '/profile'),
   MenuOption('Shop', Icons.shopping_basket, '/shop'),
   MenuOption('Example1', Icons.watch, '/example'),
