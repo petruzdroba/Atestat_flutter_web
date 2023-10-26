@@ -136,6 +136,21 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                   softWrap: true,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              AnimatedDefaultTextStyle(
+                                  style: TextStyle(
+                                    color: !didHover
+                                        ? colorOffWhite
+                                        : colorLightPurple,
+                                    fontSize: !didHover ? 14 : 16,
+                                    fontWeight: !didHover
+                                        ? FontWeight.normal
+                                        : FontWeight.bold,
+                                  ),
+                                  duration: const Duration(milliseconds: 500),
+                                  child: Text('€${widget.product.price}'))
                             ],
                           ),
                         ))

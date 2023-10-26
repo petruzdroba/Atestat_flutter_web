@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/ProductDetails.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
@@ -175,7 +176,9 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                               Icons.favorite_border,
                                               Icons.favorite,
                                               Colors.red, () {
-                                            print('Like');
+                                            if (kDebugMode) {
+                                              print('Like');
+                                            }
                                           }),
                                           const SizedBox(
                                             width: 10,
@@ -184,7 +187,9 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                               Icons.shopping_basket,
                                               Icons.check,
                                               Colors.green, () {
-                                            print('Add');
+                                            if (kDebugMode) {
+                                              print('Add');
+                                            }
                                           }),
                                           const SizedBox(
                                             width: 10,
@@ -193,7 +198,9 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                               Icons.person_add_alt_1,
                                               Icons.person_add_disabled,
                                               Colors.blue, () {
-                                            print('Add friend');
+                                            if (kDebugMode) {
+                                              print('Add friend');
+                                            }
                                           }),
                                         ],
                                       ),

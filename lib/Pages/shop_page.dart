@@ -72,7 +72,7 @@ class _ShopPageState extends State<ShopPage> {
             Expanded(
               flex: 9,
               child: Padding(
-                padding: const EdgeInsets.all(50.0),
+                padding: const EdgeInsets.only(top: 35, right: 50,left:50),
                 child: SingleChildScrollView(
                   controller: _scrollController,
                   scrollDirection: Axis.vertical,
