@@ -16,16 +16,16 @@ import '../Pages/shop_page.dart';
 
 final routerDelegate = BeamerDelegate(
   initialPath: '/home',
-  notFoundPage: BeamPage(
-    key: const ValueKey('ErrorPage'),
+  notFoundPage: const BeamPage(
+    key: ValueKey('ErrorPage'),
     title: 'Not found',
     child: ErrorPage('Error - Page not found!'),
   ),
   locationBuilder: RoutesLocationBuilder(
     routes: {
       '/home': (context, state, data) {
-        return BeamPage(
-          key: const ValueKey("home_page"),
+        return const BeamPage(
+          key: ValueKey("home_page"),
           title: 'Chief Sosa',
           child: HomePage(),
         );
@@ -47,7 +47,7 @@ final routerDelegate = BeamerDelegate(
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const LoadingBarCube(75.0, 1000);
               } else if (snapshot.hasError) {
-                return ErrorPage('Error - Loading not possible!');
+                return const ErrorPage('Error - Loading not possible!');
               } else {
                 final response = snapshot.data;
                 List<Product> products = (jsonDecode(response!.body) as List)
@@ -61,7 +61,8 @@ final routerDelegate = BeamerDelegate(
       },
       '/shop/:product': (context, state, data) {
         var product = state.pathParameters['product'];
-        if (product!.contains('product')) {
+        RegExp numericRegExp = RegExp(r'^\d+$');
+        if (product!.contains('product') && numericRegExp.hasMatch(product.replaceFirst('product', ''))) {
           product = product.replaceFirst('product', '');
           return BeamPage(
             key:  ValueKey('product$product'),
@@ -74,7 +75,7 @@ final routerDelegate = BeamerDelegate(
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const LoadingBarCube(75.0, 1000);
                     } else if (snapshot.hasError) {
-                      return ErrorPage('Error - Loading not possible!');
+                      return const ErrorPage('Error - Loading not possible!');
                     } else {
                       final productFromData = snapshot.data;
                       return ProductDetailed(productFromData!);
@@ -85,8 +86,8 @@ final routerDelegate = BeamerDelegate(
             ),
           );
         } else {
-          return BeamPage(
-            key: const ValueKey('ErrorPage'),
+          return const BeamPage(
+            key: ValueKey('ErrorPage'),
             title: 'Error',
             child: ErrorPage('Error - product not available!'),
           );
