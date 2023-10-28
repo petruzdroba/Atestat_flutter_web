@@ -49,25 +49,24 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Flexible(
-                          child: InkWell(
-                              onTap: () {
-                                Beamer.of(context).popToNamed(
-                                    '/shop/product$mostPopularItemId');
-                              },
-                              child: Container(
-                                  color: colorPureBlack,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20,
-                                        right: 20,
-                                        top: 15,
-                                        bottom: 15),
-                                    child: TextHoverColorSize(
-                                        'Most popular item',
-                                        50,
-                                        colorOffWhite,
-                                        colorLightPurple),
-                                  ))),
+                          child: Container(
+                              color: colorPureBlack,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                    top: 15,
+                                    bottom: 15),
+                                child: TextHoverColorSize(
+                                    'Most popular item',
+                                    50,
+                                    colorOffWhite,
+                                    colorLightPurple,
+                                    (){
+                                      Beamer.of(context).popToNamed(
+                                          '/shop/product$mostPopularItemId');
+                                    }),
+                              )),
                         )
                       ],
                     ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'Style/colors_style.dart';
@@ -24,6 +25,9 @@ class _ButtonIconHoverTapState extends State<ButtonIconHoverTap> {
       onTap: (){
         setState(() {
           didPress = !didPress;
+          if (kDebugMode) {
+            print(didPress);
+          }
           widget._function();
         });
       },

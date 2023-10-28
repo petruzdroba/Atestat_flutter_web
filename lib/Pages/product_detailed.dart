@@ -1,13 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_club_blaga/Class/ProductDetails.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:flutter_club_blaga/Widgets/button_icon_hover_tap.dart';
 import 'package:flutter_club_blaga/Widgets/icon_hover_action.dart';
 import 'package:flutter_club_blaga/Widgets/text_hover_color_size.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 
 import '../Class/MenuOption.dart';
 import '../Widgets/navigation_bar.dart';
@@ -72,8 +72,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                             setState(() {
                                               activeIndex = index;
                                             });
-                                          }))
-                              ),
+                                          }))),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -138,8 +137,10 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                       ),
                                       Flexible(
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             Text(
                                               'sold by   ',
@@ -152,14 +153,17 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                                 widget._productDetails.author,
                                                 35,
                                                 colorOffWhite,
-                                                colorLightPurple),
+                                                colorLightPurple,
+                                                () {} //Add later profile opening to seller profile
+                                                ),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -215,7 +219,11 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                           widget._productDetails.description,
                                           27,
                                           colorGray,
-                                          colorPureWhite)),
+                                          colorPureWhite, () {
+                                        Clipboard.setData(ClipboardData(
+                                            text: widget
+                                                ._productDetails.description));
+                                      })),
                                 ],
                               ),
                             ),
