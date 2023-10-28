@@ -11,7 +11,7 @@ class GifDisplay extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(assetLocation),
-            fit: BoxFit.cover, // Scale and cover the whole screen
+            fit: BoxFit.cover,
           ),
         ),
       ),

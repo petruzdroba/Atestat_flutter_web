@@ -37,6 +37,13 @@ final routerDelegate = BeamerDelegate(
           child: ExamplePage(),
         );
       },
+      '/profile':(context, state, data){
+        return const BeamPage(
+          key: ValueKey("profile"),
+          title: "Profile",
+          child: ExamplePage(),
+        );
+      },
       '/shop': (context, state, data) {
         return BeamPage(
           key: const ValueKey("shop"),
