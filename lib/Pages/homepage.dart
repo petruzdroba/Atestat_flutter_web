@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<MenuOption> _menuOptions = options;
+  final List<MenuOption> _menuOptions = options;
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +36,39 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(35.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Home',
-                          style: TextStyle(
-                            color: colorOffWhite,
-                            fontSize: 75,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline
+                        Flexible(
+                          child: Text(
+                            'Home',
+                            style: TextStyle(
+                                color: colorOffWhite,
+                                fontSize: 75,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline),
                           ),
                         ),
-                        InkWell(onTap: (){
-                          Beamer.of(context)
-                              .popToNamed('/shop/product$mostPopularItemId');
-                        },
-                            child: TextHoverColorSize('Most popular item', 60, colorOffBlack, colorPureBlack))
+                        Flexible(
+                          child: InkWell(
+                              onTap: () {
+                                Beamer.of(context).popToNamed(
+                                    '/shop/product$mostPopularItemId');
+                              },
+                              child: Container(
+                                  color: colorPureBlack,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
+                                        top: 15,
+                                        bottom: 15),
+                                    child: TextHoverColorSize(
+                                        'Most popular item',
+                                        50,
+                                        colorOffWhite,
+                                        colorLightPurple),
+                                  ))),
+                        )
                       ],
                     ),
                   )
