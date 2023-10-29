@@ -3,10 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_club_blaga/Class/ProductDetails.dart';
+import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:flutter_club_blaga/Widgets/button_icon_hover_tap.dart';
 import 'package:flutter_club_blaga/Widgets/icon_hover_action.dart';
 import 'package:flutter_club_blaga/Widgets/text_hover_color_size.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../Class/MenuOption.dart';
@@ -129,10 +131,10 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                         child: Text(
                                           widget._productDetails.name,
                                           softWrap: true,
-                                          style: TextStyle(
+                                          style: GoogleFonts.mukta(
                                               color: colorOffWhite,
                                               fontSize: 60,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: bold),
                                         ),
                                       ),
                                       Flexible(
@@ -144,9 +146,10 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                           children: [
                                             Text(
                                               'sold by   ',
-                                              style: TextStyle(
+                                              style: GoogleFonts.mukta(
                                                 color: colorOffWhite,
                                                 fontSize: 23,
+                                                fontWeight: light,
                                               ),
                                             ),
                                             TextHoverColorSize(
@@ -169,10 +172,10 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                     children: [
                                       Text(
                                         '€${widget._productDetails.price}',
-                                        style: TextStyle(
+                                        style: GoogleFonts.mukta(
                                             color: colorLightPurple,
                                             fontSize: 30,
-                                            fontWeight: FontWeight.normal),
+                                            fontWeight: semiBold),
                                       ),
                                       Row(
                                         mainAxisAlignment:

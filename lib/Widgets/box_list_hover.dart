@@ -1,6 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BoxListHover extends StatefulWidget {
   final String menuOption;
@@ -65,7 +67,7 @@ class _BoxListHoverState extends State<BoxListHover> {
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 250),
                       width: !didHover ? 8 : 10,
-                      height: !didHover ? 50 : 60,
+                      height: !didHover ? 60 : 70,
                       decoration: BoxDecoration(
                         color: !didHover ? colorLightPurple : colorPureBlack,
                         borderRadius: const BorderRadius.only(topLeft:  Radius.circular(3), bottomLeft: Radius.circular(3))
@@ -87,10 +89,10 @@ class _BoxListHoverState extends State<BoxListHover> {
                       children: [
                         Text(
                           menuOption,
-                          style: TextStyle(
-                            fontSize: !didHover ? 16 : 17,
+                          style: GoogleFonts.mukta(
+                            fontSize: !didHover ? 18 : 20,
                             fontWeight:
-                                !didHover ? FontWeight.normal : FontWeight.bold,
+                                !didHover ? medium : semiBold,
                             color: !didHover ? colorOffWhite : colorOffBlack,
                           ),
                         ),

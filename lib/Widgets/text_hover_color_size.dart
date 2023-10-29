@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextHoverColorSize extends StatefulWidget {
   final String text;
@@ -34,10 +36,11 @@ class _TextHoverColorSizeState extends State<TextHoverColorSize> {
           });
         },
         child: AnimatedDefaultTextStyle(
-            style: TextStyle(
+            style: GoogleFonts.mukta(
               color:!didHover? widget.fromColor:widget.toColor,
               fontSize: !didHover? widget.size:widget.size+3,
-              fontWeight: !didHover? FontWeight.normal : FontWeight.bold,
+              fontWeight: !didHover? regular : semiBold,
+              height: !didHover? 1.3 : 1.5
             ),
             duration: const Duration(milliseconds: 200),
             child: Text(

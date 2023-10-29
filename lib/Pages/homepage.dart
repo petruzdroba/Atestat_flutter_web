@@ -4,8 +4,10 @@ import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:flutter_club_blaga/Widgets/gif_display.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 import 'package:flutter_club_blaga/Widgets/text_hover_color_size.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../Class/MenuOption.dart';
+import '../Widgets/Style/assets/fonts/weights.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,10 +43,10 @@ class _HomePageState extends State<HomePage> {
                         Flexible(
                           child: Text(
                             'Home',
-                            style: TextStyle(
+                            style: GoogleFonts.mukta(
                                 color: colorOffWhite,
                                 fontSize: 75,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: bold,
                                 decoration: TextDecoration.underline),
                           ),
                         ),

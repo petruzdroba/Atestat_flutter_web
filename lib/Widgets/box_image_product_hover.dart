@@ -2,6 +2,9 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/Product.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'Style/assets/fonts/weights.dart';
 
 class BoxImageProductHover extends StatefulWidget {
   final Product product;
@@ -87,14 +90,15 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                             children: [
                               AnimatedDefaultTextStyle(
                                 duration: const Duration(milliseconds: 220),
-                                style: TextStyle(
+                                style: GoogleFonts.mukta(
                                   color: !didHover
                                       ? colorOffWhite
                                       : colorLightPurple,
-                                  fontSize: !didHover ? 18 : 20,
+                                  fontSize: !didHover ? 20 : 22,
                                   fontWeight: !didHover
-                                      ? FontWeight.normal
-                                      : FontWeight.bold,
+                                      ? medium
+                                      : extraBold,
+                                  decoration: !didHover? TextDecoration.none : TextDecoration.underline,
                                 ),
                                 child: Text(
                                   widget.product.name,
@@ -106,9 +110,10 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                               ),
                               AnimatedDefaultTextStyle(
                                 duration: const Duration(milliseconds: 220),
-                                style: TextStyle(
+                                style: GoogleFonts.mukta(
                                   color: !didHover ? colorGray : colorOffWhite,
-                                  fontSize: !didHover ? 12 : 14,
+                                  fontSize: !didHover ? 14 : 15,
+                                  height: 1.0,
                                 ),
                                 child: Text(
                                   !didHover
@@ -122,14 +127,15 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                               ),
                               AnimatedDefaultTextStyle(
                                 duration: const Duration(milliseconds: 220),
-                                style: TextStyle(
+                                style: GoogleFonts.mukta(
                                   color: !didHover
                                       ? colorLightPurple
                                       : colorPureWhite,
-                                  fontSize: !didHover ? 14 : 12,
+                                  fontSize: !didHover ? 18 : 16,
                                   fontWeight: !didHover
-                                      ? FontWeight.normal
-                                      : FontWeight.bold,
+                                      ? medium
+                                      : bold,
+                                  height: 0.9,
                                 ),
                                 child: Text(
                                   '${widget.product.list.first} vs. ${widget.product.list.last}',
@@ -140,14 +146,14 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 height: 10,
                               ),
                               AnimatedDefaultTextStyle(
-                                  style: TextStyle(
+                                  style: GoogleFonts.mukta(
                                     color: !didHover
                                         ? colorOffWhite
                                         : colorLightPurple,
-                                    fontSize: !didHover ? 14 : 16,
+                                    fontSize: !didHover ? 16 : 20,
                                     fontWeight: !didHover
-                                        ? FontWeight.normal
-                                        : FontWeight.bold,
+                                        ? medium
+                                        : semiBold,
                                   ),
                                   duration: const Duration(milliseconds: 500),
                                   child: Text('€${widget.product.price}'))

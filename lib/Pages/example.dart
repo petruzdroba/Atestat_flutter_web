@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ExamplePage extends StatelessWidget {
   const ExamplePage({Key? key}) : super(key: key);
@@ -10,6 +10,15 @@ class ExamplePage extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       color: Colors.amberAccent,
+      child: Row(
+        children: [
+          Text(
+            'word',
+            style: GoogleFonts.mukta(fontWeight: FontWeight.w900),
+          ),
+          Text('word'),
+        ],
+      ),
     );
   }
 }
