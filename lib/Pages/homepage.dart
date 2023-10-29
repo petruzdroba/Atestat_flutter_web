@@ -1,5 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_club_blaga/Class/PopularProduct.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:flutter_club_blaga/Widgets/gif_display.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
@@ -10,7 +12,9 @@ import '../Class/MenuOption.dart';
 import '../Widgets/Style/assets/fonts/weights.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final PopularProduct _popularProduct;
+
+  const HomePage(this._popularProduct, {super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -33,42 +37,102 @@ class _HomePageState extends State<HomePage> {
               flex: 9,
               child: Stack(
                 children: [
-                  const GifDisplay('lib/Widgets/Style/assets/gif.gif'),
+                  GifDisplay(widget._popularProduct.gif),
                   Padding(
-                    padding: const EdgeInsets.all(35.0),
-                    child: Row(
+                    padding: const EdgeInsets.only(
+                        top: 35, left: 35, right: 35, bottom: 50),
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
-                          child: Text(
-                            'Home',
-                            style: GoogleFonts.mukta(
-                                color: colorOffWhite,
-                                fontSize: 75,
-                                fontWeight: bold,
-                                decoration: TextDecoration.underline),
-                          ),
-                        ),
-                        Flexible(
-                          child: Container(
-                              color: colorPureBlack,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20,
-                                    right: 20,
-                                    top: 15,
-                                    bottom: 15),
-                                child: TextHoverColorSize(
-                                    'Most popular item',
-                                    50,
-                                    colorOffWhite,
-                                    colorLightPurple,
-                                    (){
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                'Home',
+                                style: GoogleFonts.mukta(
+                                    color: colorOffWhite,
+                                    fontSize: 75,
+                                    fontWeight: bold,
+                                    decoration: TextDecoration.underline),
+                              ),
+                            ),
+                            Flexible(
+                              child: Container(
+                                  color: colorPureBlack,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
+                                        top: 15,
+                                        bottom: 15),
+                                    child: TextHoverColorSize(
+                                        'Most popular item',
+                                        50,
+                                        colorOffWhite,
+                                        colorLightPurple, () {
                                       Beamer.of(context).popToNamed(
-                                          '/shop/product$mostPopularItemId');
+                                          '/shop/product${widget._popularProduct.id}');
                                     }),
-                              )),
+                                  )),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    widget._popularProduct.name,
+                                    style: GoogleFonts.mukta(
+                                      fontSize: 60,
+                                      color: colorOffWhite,
+                                      fontWeight: medium,
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: TextHoverColorSize(
+                                      '€${widget._popularProduct.price}',
+                                      45,
+                                      colorOffWhite,
+                                      colorOffBlack, () {
+                                    Clipboard.setData(ClipboardData(
+                                        text:
+                                            '€${widget._popularProduct.price}'));
+                                  }),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    'sold by   ',
+                                    style: GoogleFonts.mukta(
+                                      color: colorOffWhite,
+                                      fontSize: 23,
+                                      fontWeight: light,
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: TextHoverColorSize(
+                                      widget._popularProduct.author,
+                                      35,
+                                      colorOffWhite,
+                                      colorOffBlack,
+                                      () {} //Add later profile opening to seller profile
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ],
                         )
                       ],
                     ),

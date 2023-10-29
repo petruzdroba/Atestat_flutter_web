@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Class/PopularProduct.dart';
 import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
 import 'package:flutter_club_blaga/Service/product_service.dart';
@@ -24,10 +25,28 @@ final routerDelegate = BeamerDelegate(
   locationBuilder: RoutesLocationBuilder(
     routes: {
       '/home': (context, state, data) {
-        return const BeamPage(
-          key: ValueKey("home_page"),
+        return BeamPage(
+          key: const ValueKey("home_page"),
           title: 'Chief Sosa',
-          child: HomePage(),
+          child: FutureBuilder(
+            future: getPopularProduct(),
+            builder: (context, AsyncSnapshot<Response> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const LoadingBarCube(75.0, 1000);
+              } else if (snapshot.hasError) {
+                return const ErrorPage('Error - Loading not possible!');
+              } else {
+                final response = snapshot.data;
+                if (response?.statusCode == 200) {
+                  final jsonResponse = json.decode(response!.body);
+                  final popularProduct = PopularProduct.fromJson(jsonResponse);
+                  return HomePage(popularProduct);
+                } else {
+                  return ErrorPage('Error ${response!.statusCode}');
+                }
+              }
+            },
+          ),
         );
       },
       '/example': (context, state, data) {
@@ -37,7 +56,7 @@ final routerDelegate = BeamerDelegate(
           child: ExamplePage(),
         );
       },
-      '/profile':(context, state, data){
+      '/profile': (context, state, data) {
         return const BeamPage(
           key: ValueKey("profile"),
           title: "Profile",
@@ -69,10 +88,11 @@ final routerDelegate = BeamerDelegate(
       '/shop/:product': (context, state, data) {
         var product = state.pathParameters['product'];
         RegExp numericRegExp = RegExp(r'^\d+$');
-        if (product!.contains('product') && numericRegExp.hasMatch(product.replaceFirst('product', ''))) {
+        if (product!.contains('product') &&
+            numericRegExp.hasMatch(product.replaceFirst('product', ''))) {
           product = product.replaceFirst('product', '');
           return BeamPage(
-            key:  ValueKey('product$product'),
+            key: ValueKey('product$product'),
             title: 'product$product',
             child: Builder(
               builder: (context) {

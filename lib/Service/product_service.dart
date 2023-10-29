@@ -40,3 +40,12 @@ Future<ProductDetails> postIdGetProductDetails(int id) async {
     throw Exception('Failed to load product details');
   }
 }
+
+Future<http.Response> getPopularProduct() {
+  return http.get(
+    Uri.parse('https://cb5fbe06-e5ef-4282-b5e6-04b07cc24db8.mock.pstmn.io/popular_product'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+}
