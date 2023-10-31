@@ -120,6 +120,13 @@ final routerDelegate = BeamerDelegate(
           );
         }
       },
+      '/sell': (context, state, data) {
+        return const BeamPage(
+          key: ValueKey('sell_page'),
+          title:'Sell item',
+          child: ExamplePage(),
+        );
+      }
     },
   ),
 );

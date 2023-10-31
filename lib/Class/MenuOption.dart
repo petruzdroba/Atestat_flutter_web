@@ -14,6 +14,6 @@ List<MenuOption> options = [
   MenuOption('Home', Icons.home, '/home'),
   MenuOption('Profile', Icons.person, '/profile'),
   MenuOption('Shop', Icons.shopping_basket, '/shop'),
-  MenuOption('Example1', Icons.watch, '/example'),
+  MenuOption('Sell', Icons.sell_rounded, '/sell'),
   MenuOption('Example2', Icons.ring_volume, '/example')
 ];
