@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 
 class IconHoverAction extends StatefulWidget {
   final IconData icon;
@@ -39,7 +38,7 @@ class _IconHoverActionState extends State<IconHoverAction> {
           child: Icon(
             widget.icon,
             size: 50,
-            color: !didHover ? colorOffWhite : colorLightPurple,
+            color: !didHover ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.outline,
           ),
         ),
       ),

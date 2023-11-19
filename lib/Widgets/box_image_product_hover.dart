@@ -41,10 +41,10 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
           width: !didHover ? 500 : 525,
           height: !didHover ? 250 : 275,
           decoration: BoxDecoration(
-            color: !didHover ? colorOffBlack : colorPureBlack,
+            color: !didHover ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.onPrimary,
             border: Border.all(
                 width: !didHover ? 1.0 : 2.0,
-                color: didHover == false ? colorOffWhite : colorLightPurple),
+                color: didHover == false ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.outline),
           ),
           child: Stack(
             children: [
@@ -71,7 +71,7 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                       1.0
                     ],
                         colors: [
-                      !didHover ? colorOffBlack : colorPureBlack,
+                      !didHover ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.onPrimary,
                       Colors.transparent
                     ])),
                 child: Row(
@@ -92,8 +92,7 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 duration: const Duration(milliseconds: 220),
                                 style: GoogleFonts.mukta(
                                   color: !didHover
-                                      ? colorOffWhite
-                                      : colorLightPurple,
+                                      ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.outline,
                                   fontSize: !didHover ? 20 : 22,
                                   fontWeight: !didHover
                                       ? medium
@@ -111,7 +110,7 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                               AnimatedDefaultTextStyle(
                                 duration: const Duration(milliseconds: 220),
                                 style: GoogleFonts.mukta(
-                                  color: !didHover ? colorGray : colorOffWhite,
+                                  color: !didHover ? colorGray : Theme.of(context).colorScheme.primary,
                                   fontSize: !didHover ? 14 : 15,
                                   height: 1.0,
                                 ),
@@ -129,8 +128,8 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 duration: const Duration(milliseconds: 220),
                                 style: GoogleFonts.mukta(
                                   color: !didHover
-                                      ? colorLightPurple
-                                      : colorPureWhite,
+                                      ? Theme.of(context).colorScheme.outline
+                                      : Theme.of(context).colorScheme.onSecondary,
                                   fontSize: !didHover ? 18 : 16,
                                   fontWeight: !didHover
                                       ? medium
@@ -148,8 +147,7 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                               AnimatedDefaultTextStyle(
                                   style: GoogleFonts.mukta(
                                     color: !didHover
-                                        ? colorOffWhite
-                                        : colorLightPurple,
+                                        ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.outline,
                                     fontSize: !didHover ? 16 : 20,
                                     fontWeight: !didHover
                                         ? medium

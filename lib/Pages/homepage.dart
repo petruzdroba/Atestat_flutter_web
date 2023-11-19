@@ -2,7 +2,6 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_club_blaga/Class/PopularProduct.dart';
-import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:flutter_club_blaga/Widgets/gif_display.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 import 'package:flutter_club_blaga/Widgets/text_hover_color_size.dart';
@@ -29,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Colors.black87,
+        color: Theme.of(context).colorScheme.background,
         child: Row(
           children: [
             SideNavigationBar(_menuOptions, '/home'),
@@ -53,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                 'Home',
                                 style: GoogleFonts.mukta(
-                                    color: colorOffWhite,
+                                    color: Theme.of(context).colorScheme.primary,
                                     fontSize: 75,
                                     fontWeight: bold,
                                     decoration: TextDecoration.underline),
@@ -61,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Flexible(
                               child: Container(
-                                  color: colorPureBlack,
+                                  color: Theme.of(context).colorScheme.onPrimary,
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         left: 20,
@@ -71,8 +70,8 @@ class _HomePageState extends State<HomePage> {
                                     child: TextHoverColorSize(
                                         'Most popular item',
                                         50,
-                                        colorOffWhite,
-                                        colorLightPurple, () {
+                                        Theme.of(context).colorScheme.primary,
+                                        Theme.of(context).colorScheme.outline, () {
                                       Beamer.of(context).popToNamed(
                                           '/shop/product${widget._popularProduct.id}');
                                     }),
@@ -91,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                                     widget._popularProduct.name,
                                     style: GoogleFonts.mukta(
                                       fontSize: 60,
-                                      color: colorOffWhite,
+                                      color: Theme.of(context).colorScheme.primary,
                                       fontWeight: medium,
                                     ),
                                   ),
@@ -100,8 +99,8 @@ class _HomePageState extends State<HomePage> {
                                   child: TextHoverColorSize(
                                       '€${widget._popularProduct.price}',
                                       45,
-                                      colorOffWhite,
-                                      colorOffBlack, () {
+                                      Theme.of(context).colorScheme.primary,
+                                      Theme.of(context).colorScheme.background, () {
                                     Clipboard.setData(ClipboardData(
                                         text:
                                             '€${widget._popularProduct.price}'));
@@ -115,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Text(
                                     'sold by   ',
                                     style: GoogleFonts.mukta(
-                                      color: colorOffWhite,
+                                      color: Theme.of(context).colorScheme.primary,
                                       fontSize: 23,
                                       fontWeight: light,
                                     ),
@@ -125,8 +124,8 @@ class _HomePageState extends State<HomePage> {
                                   child: TextHoverColorSize(
                                       widget._popularProduct.author,
                                       35,
-                                      colorOffWhite,
-                                      colorOffBlack,
+                                      Theme.of(context).colorScheme.primary,
+                                      Theme.of(context).colorScheme.background,
                                       () {} //Add later profile opening to seller profile
                                       ),
                                 ),

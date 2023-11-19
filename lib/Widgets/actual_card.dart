@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,9 +21,11 @@ class _ActualCardState extends State<ActualCard> {
   Color getRandomColor() {
     final random = Random();
     final List<Color> allowedColors = [
-      const Color(0xFF474747),
-      const Color(0xFF353535),
-      const Color(0xFF232323),
+      Colors.red,
+      Colors.blue,
+      Colors.deepOrange,
+      Colors.green,
+      Colors.deepPurple
     ];
     return allowedColors[random.nextInt(allowedColors.length)];
   }
@@ -35,7 +38,7 @@ class _ActualCardState extends State<ActualCard> {
           duration: const Duration(milliseconds: 200),
           width: !didHover
               ? (widget.size * 100).toDouble()
-              : (widget.size * 100).toDouble() + 55,
+              : (widget.size * 100).toDouble() + widget.text.length * 10,
           height: !didHover ? 150 : 175,
         ),
         MouseRegion(
@@ -52,40 +55,87 @@ class _ActualCardState extends State<ActualCard> {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
-              color: !didHover ? getRandomColor() : colorOffWhite, // Change to white
+              color: !didHover ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.primary,
+              // Change to white
               borderRadius: BorderRadius.circular(30),
               border: Border.all(color: colorGray, width: 0.5),
               boxShadow: const [
                 BoxShadow(
-                  color: Colors.grey, // Shadow color
-                  offset: Offset(0, 4), // Offset of the shadow
-                  blurRadius: 10, // Spread of the shadow
+                  color: Colors.black54, // Shadow color
+                  offset: Offset(0, 1), // Offset of the shadow
+                  blurRadius: 3, // Spread of the shadow
                 ),
-              ],// Use grey
+              ],
             ),
             width: 550,
             height: 350,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 400),
-                    transform: !didHover ? Matrix4.rotationZ(3.14159265359 / 2) : Matrix4.rotationZ(0),
-                    child: AnimatedDefaultTextStyle(
-                      duration: const Duration(milliseconds: 325),
-                      style: GoogleFonts.mukta(
-                        fontSize: 30,
-                        color: didHover ? colorOffBlack : colorOffWhite,
-                        fontWeight: FontWeight.w500,
-                        decoration: TextDecoration.none,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15, right: 30),
+                      child: Column(
+                        children: [
+                          AnimatedDefaultTextStyle(
+                            duration: const Duration(milliseconds: 325),
+                            style: GoogleFonts.mukta(
+                              fontSize: 30,
+                              color:
+                                  !didHover ? Theme.of(context).colorScheme.outline : Theme.of(context).colorScheme.background,
+                              fontWeight: !didHover ? medium : semiBold,
+                              decoration: TextDecoration.none,
+                            ),
+                            child: Text(widget.text),
+                          ),
+                          Text(
+                            'Book now',
+                            style: GoogleFonts.mukta(
+                                fontSize: 20,
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: regular,
+                                decoration: TextDecoration.none),
+                          )
+                        ],
                       ),
-                      child: Text(widget.text),
                     ),
-                  )
-                ],
-              ),
+                    Stack(
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 325),
+                          width: 70,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.background,
+                              borderRadius: const BorderRadius.only(
+                                  bottomRight: Radius.circular(30),
+                                  topLeft: Radius.circular(30))),
+                        ),
+                        Row(
+                          children: [
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 335),
+                              width: !didHover ? 0 : 70,
+                              height: 50,
+                              child: RotatedBox(
+                                quarterTurns: 1,
+                                child: Icon(Icons.airplanemode_active,
+                                    color: !didHover
+                                        ? Theme.of(context).colorScheme.background
+                                        : Theme.of(context).colorScheme.outline),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         ),

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'Style/colors_style.dart';
 
 class ButtonIconHoverTap extends StatefulWidget {
   final IconData icon;
@@ -47,14 +46,14 @@ class _ButtonIconHoverTapState extends State<ButtonIconHoverTap> {
           width: !didHover ? 45 : 50,
           height: !didHover ? 45 : 50,
           decoration: BoxDecoration(
-              color: !didHover ? colorOffBlack: colorPureBlack,
-              border: Border.all(width: 1.5, color: didHover == false ?colorOffWhite :colorLightPurple),
+              color: !didHover ? Theme.of(context).colorScheme.background: Theme.of(context).colorScheme.onPrimary,
+              border: Border.all(width: 1.5, color: didHover == false ?Theme.of(context).colorScheme.primary :Theme.of(context).colorScheme.outline),
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15),
                   bottomRight: Radius.circular(15),
                   topRight: Radius.circular(8),
                   bottomLeft: Radius.circular(8))),
-          child: Icon(!didPress? widget.icon: widget.toIcon, color: !didPress? colorLightPurple: widget.colorAfterTap),
+          child: Icon(!didPress? widget.icon: widget.toIcon, color: !didPress? Theme.of(context).colorScheme.outline: widget.colorAfterTap),
         ),
       ),
     );

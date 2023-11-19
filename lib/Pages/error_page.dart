@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 
 import '../Class/MenuOption.dart';
@@ -22,7 +21,7 @@ class _ErrorPageState extends State<ErrorPage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Colors.black87,
+        color: Theme.of(context).colorScheme.onPrimary,
         child: Row(
           children: [
             SideNavigationBar(_menuOptions, '/error'),
@@ -32,7 +31,7 @@ class _ErrorPageState extends State<ErrorPage> {
                 child: Text(
                   widget.errorMessage,
                   style: TextStyle(
-                    color: colorOffWhite,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 50,
                     fontWeight: FontWeight.bold
                   ),

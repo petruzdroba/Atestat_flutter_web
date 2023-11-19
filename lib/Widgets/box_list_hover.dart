@@ -1,7 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
-import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BoxListHover extends StatefulWidget {
@@ -49,10 +48,10 @@ class _BoxListHoverState extends State<BoxListHover> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           decoration: BoxDecoration(
-              color: !didHover ? Colors.transparent : colorLightPurple,
+              color: !didHover ? Colors.transparent : Theme.of(context).colorScheme.outline,
               border: Border.all(
                   width: !didHover ? 0.2 : 0.4,
-                  color: !didHover ? colorOffWhite : colorPureBlack)),
+                  color: !didHover ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onPrimary)),
           child: Stack(
             children: [
               Visibility(
@@ -65,11 +64,11 @@ class _BoxListHoverState extends State<BoxListHover> {
                       height: 10,
                     ),
                     AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 230),
                       width: !didHover ? 8 : 10,
                       height: !didHover ? 60 : 70,
                       decoration: BoxDecoration(
-                        color: !didHover ? colorLightPurple : colorPureBlack,
+                        color: !didHover ? Theme.of(context).colorScheme.outline : Theme.of(context).colorScheme.onPrimary,
                         borderRadius: const BorderRadius.only(topLeft:  Radius.circular(3), bottomLeft: Radius.circular(3))
                       ),
                     ),
@@ -93,7 +92,7 @@ class _BoxListHoverState extends State<BoxListHover> {
                             fontSize: !didHover ? 18 : 20,
                             fontWeight:
                                 !didHover ? medium : semiBold,
-                            color: !didHover ? colorOffWhite : colorOffBlack,
+                            color: !didHover ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onPrimary
                           ),
                         ),
                         const SizedBox(
@@ -103,7 +102,7 @@ class _BoxListHoverState extends State<BoxListHover> {
                             visible: didHover,
                             child: Icon(
                               widget.optionIcon,
-                              color: colorOffBlack,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             )),
                       ],
                     ),

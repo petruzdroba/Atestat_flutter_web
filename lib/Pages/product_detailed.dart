@@ -36,7 +36,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: colorOffBlack,
+        color:Theme.of(context).colorScheme.background,
         child: Row(
           children: [
             SideNavigationBar(widget._menuOptions, '/shop'),
@@ -47,7 +47,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
                     Expanded(
                         flex: 23,
                         child: Container(
-                          color: colorOffBlack,
+                          color: Theme.of(context).colorScheme.background,
                           child: Stack(
                             children: [
                               Center(
@@ -101,8 +101,8 @@ class _ProductDetailedState extends State<ProductDetailed> {
                         _carouselController.animateToPage(index);
                       },
                       effect: ExpandingDotsEffect(
-                        dotColor: colorLightPurple,
-                        activeDotColor: colorLightPurple,
+                        dotColor: Theme.of(context).colorScheme.outline,
+                        activeDotColor: Theme.of(context).colorScheme.outline,
                         dotHeight: 10,
                         dotWidth: 10,
                       ),
@@ -110,7 +110,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
                     Expanded(
                         flex: 30,
                         child: Container(
-                          color: colorOffBlack,
+                          color: Theme.of(context).colorScheme.background,
                           child: Padding(
                             padding: const EdgeInsets.only(
                               top: 30,
@@ -132,7 +132,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                           widget._productDetails.name,
                                           softWrap: true,
                                           style: GoogleFonts.mukta(
-                                              color: colorOffWhite,
+                                              color: Theme.of(context).colorScheme.primary,
                                               fontSize: 60,
                                               fontWeight: bold),
                                         ),
@@ -147,7 +147,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                             Text(
                                               'sold by   ',
                                               style: GoogleFonts.mukta(
-                                                color: colorOffWhite,
+                                                color: Theme.of(context).colorScheme.primary,
                                                 fontSize: 23,
                                                 fontWeight: light,
                                               ),
@@ -155,8 +155,8 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                             TextHoverColorSize(
                                                 widget._productDetails.author,
                                                 35,
-                                                colorOffWhite,
-                                                colorLightPurple,
+                                                Theme.of(context).colorScheme.primary,
+                                                Theme.of(context).colorScheme.outline,
                                                 () {} //Add later profile opening to seller profile
                                                 ),
                                           ],
@@ -173,7 +173,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                       Text(
                                         '€${widget._productDetails.price}',
                                         style: GoogleFonts.mukta(
-                                            color: colorLightPurple,
+                                            color: Theme.of(context).colorScheme.outline,
                                             fontSize: 30,
                                             fontWeight: semiBold),
                                       ),
@@ -222,7 +222,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                           widget._productDetails.description,
                                           27,
                                           colorGray,
-                                          colorPureWhite, () {
+                                          Theme.of(context).colorScheme.onSecondary, () {
                                         Clipboard.setData(ClipboardData(
                                             text: widget
                                                 ._productDetails.description));
