@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/PopularProduct.dart';
 import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
+import 'package:flutter_club_blaga/Pages/profile_page.dart';
 import 'package:flutter_club_blaga/Service/product_service.dart';
 import 'package:flutter_club_blaga/Widgets/loading_bar_cube.dart';
 import 'package:http/http.dart';
@@ -60,7 +61,7 @@ final routerDelegate = BeamerDelegate(
         return const BeamPage(
           key: ValueKey("profile"),
           title: "Profile",
-          child: ExamplePage(),
+          child: ProfilePage(),
         );
       },
       '/shop': (context, state, data) {
@@ -126,7 +127,7 @@ final routerDelegate = BeamerDelegate(
           title:'Sell item',
           child: ExamplePage(),
         );
-      }
+      },
     },
   ),
 );
