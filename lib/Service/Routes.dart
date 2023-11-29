@@ -7,11 +7,13 @@ import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
 import 'package:flutter_club_blaga/Pages/profile_page.dart';
 import 'package:flutter_club_blaga/Service/product_service.dart';
+import 'package:flutter_club_blaga/Service/user_service.dart';
 import 'package:flutter_club_blaga/Widgets/loading_bar_cube.dart';
 import 'package:http/http.dart';
 
 import '../Class/Product.dart';
 import '../Class/ProductDetails.dart';
+import '../Class/user.dart';
 import '../Pages/example.dart';
 import '../Pages/homepage.dart';
 import '../Pages/shop_page.dart';
@@ -57,12 +59,36 @@ final routerDelegate = BeamerDelegate(
           child: ExamplePage(),
         );
       },
-      '/profile': (context, state, data) {
-        return const BeamPage(
-          key: ValueKey("profile"),
-          title: "Profile",
-          child: ProfilePage(),
-        );
+      '/profile/:username': (context, state, data) {
+        var username = state.pathParameters['username'];
+        if(username == '-1'){
+          return const ErrorPage('Log in to see your profile');
+          //Here you can add a login and sign up page
+        }
+        else if (username!.isNotEmpty) {
+          return BeamPage(
+            key: ValueKey("profile $username"),
+            title: "Profile $username",
+            child: FutureBuilder(
+                future: getUserbyUsername(username),
+                builder: (context, AsyncSnapshot<Response> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const LoadingBarCube(75.0, 1000);
+                  } else if (snapshot.hasError) {
+                    return const ErrorPage('Error - Loading user!');
+                  } else {
+                    final response = snapshot.data;
+                    if (response?.statusCode == 200) {
+                      final jsonResponse = json.decode(response!.body);
+                      final user = User.fromJson(jsonResponse);
+                      return ProfilePage(user: user);
+                    } else {
+                      return ErrorPage('Error ${response!.statusCode}');
+                    }
+                  }
+                }),
+          );
+        }
       },
       '/shop': (context, state, data) {
         return BeamPage(
@@ -124,7 +150,7 @@ final routerDelegate = BeamerDelegate(
       '/sell': (context, state, data) {
         return const BeamPage(
           key: ValueKey('sell_page'),
-          title:'Sell item',
+          title: 'Sell item',
           child: ExamplePage(),
         );
       },

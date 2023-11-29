@@ -29,7 +29,8 @@ class _BoxListHoverState extends State<BoxListHover> {
         if (widget._currentRoute == '/error') {
           Beamer.of(context)
               .beamToNamed(widget.route, replaceRouteInformation: true);
-        } else {
+        }
+        else {
           Beamer.of(context)
               .popToNamed(widget.route); // Navigate to the desired route
         }

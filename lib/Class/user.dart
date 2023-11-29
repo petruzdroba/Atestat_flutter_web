@@ -22,4 +22,12 @@ class User {
   set username(String value) {
     _username = value;
   }
+
+  factory User.fromJson(Map<String, dynamic> json){
+    return User(
+      json['username'] as String,
+      json['pfp'] as String,
+      json['name'] as String,
+    );
+  }
 }

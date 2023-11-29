@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_club_blaga/Widgets/stack_of_cards.dart';
+import 'package:flutter_club_blaga/Class/current_username.dart';
 
 class ExamplePage extends StatelessWidget {
   const ExamplePage({Key? key}) : super(key: key);
@@ -10,7 +10,10 @@ class ExamplePage extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       color: Colors.amberAccent,
-      child: const Center(child: StackOfCards()),
+      child:  Center(
+          child: ElevatedButton(onPressed: () {
+            currentUsername.currentusername = '3434';
+          }, child: const Text('tap'))),
     );
   }
 }

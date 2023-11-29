@@ -6,17 +6,14 @@ import '../Class/MenuOption.dart';
 import '../Class/user.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  final User user;
+  const ProfilePage({super.key, required this.user});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final User user = User(
-      'petruzdroba',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gru9G3h6HXfS6f2F9S0gTm49NAyDwU2jiQ&usqp=CAU',
-      'Petru Zdroba');
   final List<MenuOption> _menuOptions = options;
 
   @override
@@ -37,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ProfileDisplay(user: user),
+                      ProfileDisplay(user: widget.user),
                     ],
                   )),
             ),
