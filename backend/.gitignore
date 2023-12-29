@@ -1,0 +1,25 @@
+# .gitignore for a Django project
+
+# Ignore virtual environment
+venv/
+
+# Ignore database
+db.sqlite3
+
+# Ignore static files
+staticfiles/
+
+# Ignore media files
+media/
+
+# Ignore environment-specific files
+.env
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore local settings
+settings_local.py
