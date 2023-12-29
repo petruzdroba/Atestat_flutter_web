@@ -43,7 +43,7 @@ Future<ProductDetails> postIdGetProductDetails(int id) async {
 
 Future<http.Response> getPopularProduct() {
   return http.get(
-    Uri.parse('https://cb5fbe06-e5ef-4282-b5e6-04b07cc24db8.mock.pstmn.io/popular_product'),
+    Uri.parse('http://localhost:8000/getPopularProduct/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

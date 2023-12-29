@@ -7,6 +7,7 @@ import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
 import 'package:flutter_club_blaga/Pages/profile_page.dart';
 import 'package:flutter_club_blaga/Service/product_service.dart';
+import 'package:flutter_club_blaga/Service/test_service.dart';
 import 'package:flutter_club_blaga/Service/user_service.dart';
 import 'package:flutter_club_blaga/Widgets/loading_bar_cube.dart';
 import 'package:http/http.dart';
@@ -53,10 +54,28 @@ final routerDelegate = BeamerDelegate(
         );
       },
       '/example': (context, state, data) {
-        return const BeamPage(
-          key: ValueKey("example"),
+        return  BeamPage(
+          key: const ValueKey("example"),
           title: 'Example page',
-          child: ExamplePage(),
+          child:FutureBuilder(
+            future: getTestService(),
+            builder: (context, AsyncSnapshot<Response> snapshot) {
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return const LoadingBarCube(75.0, 1000);
+              }else if(snapshot.hasError){
+                return const ErrorPage('Error - Server offline !');
+              }else{
+                final response = snapshot.data;
+                if(response?.statusCode == 200){
+                  final jsonResponse = json.decode(response!.body);
+                  String testService = jsonResponse['message'];
+                  return ExamplePage(testService);
+                }else{
+                  return ErrorPage('Error ${response!.statusCode}');
+                }
+              }
+            },
+          ),
         );
       },
       '/profile/:username': (context, state, data) {
@@ -151,7 +170,7 @@ final routerDelegate = BeamerDelegate(
         return const BeamPage(
           key: ValueKey('sell_page'),
           title: 'Sell item',
-          child: ExamplePage(),
+          child: Placeholder(),
         );
       },
     },
