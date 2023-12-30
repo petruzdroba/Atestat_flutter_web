@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
-from .models import TestModel, PopularProductModel
+from .models import TestModel, PopularProductModel, DetailedProductModel
 
 @csrf_exempt  
 def get_string(request):
@@ -27,3 +27,20 @@ def getPopularProduct(request):
         return JsonResponse(response_data)
     except PopularProductModel.DoesNotExist:
         return JsonResponse({'message': 'Popular product not found'}, status=404)
+
+def getProductById(request, id):
+    try:
+        product = DetailedProductModel.objects.get(product_id = id)
+        response_data = {
+        'name' : product.name,
+        'price':product.price,
+        'id':product.product_id,
+        'image':product.image,
+        'description':product.description,
+        'list':product.list_data,
+        'author':product.author,
+        'images':product.images
+        }
+        return JsonResponse(response_data)
+    except DetailedProductModel.DoesNotExist:
+        return JsonResponse({'message': 'Product not found'}, status=404)

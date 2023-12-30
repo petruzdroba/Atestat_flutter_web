@@ -11,10 +11,10 @@ class PopularProductModel(models.Model):
     author = models.CharField(max_length=150)
     gif = models.CharField(max_length=255)
 
-class ProjectModel(models.Model):
+class DetailedProductModel(models.Model):
     name = models.CharField(max_length=255)
     price = models.FloatField()
-    id = models.IntegerField()
+    product_id = models.IntegerField(primary_key = True)
     image = models.CharField(max_length=255)
     description = models.TextField()
     list_data = models.JSONField()  # Assuming 'list' is a JSON array in the original JSON

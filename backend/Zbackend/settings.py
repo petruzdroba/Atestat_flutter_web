@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'web_backend.apps.WebBackendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -126,5 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://localhost:60224"  # Replace with the origin of your frontend application
+    "http://localhost:2702",
+
+    "http://localhost:53994"
 ]
