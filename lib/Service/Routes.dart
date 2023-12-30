@@ -54,23 +54,23 @@ final routerDelegate = BeamerDelegate(
         );
       },
       '/example': (context, state, data) {
-        return  BeamPage(
+        return BeamPage(
           key: const ValueKey("example"),
           title: 'Example page',
-          child:FutureBuilder(
+          child: FutureBuilder(
             future: getTestService(),
             builder: (context, AsyncSnapshot<Response> snapshot) {
-              if(snapshot.connectionState == ConnectionState.waiting){
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const LoadingBarCube(75.0, 1000);
-              }else if(snapshot.hasError){
+              } else if (snapshot.hasError) {
                 return const ErrorPage('Error - Server offline !');
-              }else{
+              } else {
                 final response = snapshot.data;
-                if(response?.statusCode == 200){
+                if (response?.statusCode == 200) {
                   final jsonResponse = json.decode(response!.body);
                   String testService = jsonResponse['message'];
                   return ExamplePage(testService);
-                }else{
+                } else {
                   return ErrorPage('Error ${response!.statusCode}');
                 }
               }
@@ -80,11 +80,10 @@ final routerDelegate = BeamerDelegate(
       },
       '/profile/:username': (context, state, data) {
         var username = state.pathParameters['username'];
-        if(username == '-1'){
+        if (username == '-1') {
           return const ErrorPage('Log in to see your profile');
           //Here you can add a login and sign up page
-        }
-        else if (username!.isNotEmpty) {
+        } else if (username!.isNotEmpty) {
           return BeamPage(
             key: ValueKey("profile $username"),
             title: "Profile $username",
@@ -142,16 +141,25 @@ final routerDelegate = BeamerDelegate(
             title: 'product$product',
             child: Builder(
               builder: (context) {
-                return FutureBuilder<ProductDetails>(
-                  future: postIdGetProductDetails(int.parse(product!)),
-                  builder: (context, AsyncSnapshot<ProductDetails> snapshot) {
+                return FutureBuilder<Response>(
+                  future: getProductDetails(int.parse(product!)),
+                  builder: (context, AsyncSnapshot<Response> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const LoadingBarCube(75.0, 1000);
                     } else if (snapshot.hasError) {
                       return const ErrorPage('Error - Loading not possible!');
                     } else {
-                      final productFromData = snapshot.data;
-                      return ProductDetailed(productFromData!);
+                      final response = snapshot.data;
+                      if (response?.statusCode == 200) {
+                        final jsonResponse = json.decode(response!.body);
+                        final product = ProductDetails.fromJson(jsonResponse);
+                        return ProductDetailed(product);
+                      } else if (response?.statusCode == 404) {
+                        return const ErrorPage(
+                            'Error - product not available!');
+                      } else {
+                        return ErrorPage('Error ${response!.statusCode}');
+                      }
                     }
                   },
                 );
