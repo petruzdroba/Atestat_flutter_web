@@ -1,8 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.core import serializers
 import json
 from .models import TestModel, PopularProductModel, DetailedProductModel
+from django.core.serializers.json import DjangoJSONEncoder
 
 @csrf_exempt  
 def get_string(request):
@@ -27,6 +28,33 @@ def getPopularProduct(request):
         return JsonResponse(response_data)
     except PopularProductModel.DoesNotExist:
         return JsonResponse({'message': 'Popular product not found'}, status=404)
+
+class CustomJSONEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, DetailedProductModel):
+            return {
+                'id': obj.product_id,
+                'name': obj.name,
+                'price': obj.price,
+                'description': obj.description,
+                'image':obj.image,
+                'author': obj.author,
+            }
+        return super().default(obj)
+
+@csrf_exempt
+def getAllProducts(request):
+    try:
+        # Query all instances of DetailedProductModel
+        all_products = DetailedProductModel.objects.all()
+
+        # Serialize the queryset using the custom JSON encoder
+        serialized_products = json.dumps(list(all_products), cls=CustomJSONEncoder)
+
+        # Return the serialized data as JSON response
+        return JsonResponse(json.loads(serialized_products), safe=False)
+    except DetailedProductModel.DoesNotExist:
+        return JsonResponse({'message': 'No products found'}, status=404)
 
 def getProductById(request, id):
     try:
