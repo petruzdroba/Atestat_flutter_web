@@ -124,7 +124,12 @@ final routerDelegate = BeamerDelegate(
                 List<Product> products = (jsonDecode(response!.body) as List)
                     .map((e) => Product.fromJson(e))
                     .toList();
-                return ShopPage(products);
+                if (products.isEmpty) {
+                  // Handle the case where the list is empty
+                  return const ErrorPage('Error - No products available!');
+                }else{
+                  return ShopPage(products);
+                }
               }
             },
           ),

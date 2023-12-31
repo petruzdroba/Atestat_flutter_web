@@ -1,19 +1,12 @@
 import 'package:flutter_club_blaga/Class/Product.dart';
 
 class ProductDetails extends Product{
-  String _author ='';
   List<String> _images = [''];
 
-  ProductDetails(String name, double price,int id, String image, String description, List<String> list, String author,List<String> images)
-      : super(name,price, id, image, description, list) {
-    _author = author;
+  ProductDetails(String name, double price,int id, String image, String description, String author,List<String> images)
+      : super(name,price, id, image, description,author) {
+
     _images = images;
-  }
-
-  String get author => _author;
-
-  set author(String value) {
-    _author = value;
   }
 
   List<String> get images => _images;
@@ -29,7 +22,6 @@ class ProductDetails extends Product{
       json['id'] as int,
       json['image'] as String,
       json['description'] as String,
-      List<String>.from(json['list'] as List),
       json['author'] as String,
       List<String>.from(json['images'] as List),
     );

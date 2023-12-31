@@ -43,14 +43,32 @@ class _ShopPageState extends State<ShopPage> {
     final end = (currentPage + 1) * itemsPerPage;
 
     if (start < widget.shopProductList.length) {
-      final nextProducts = widget.shopProductList.sublist(start, end);
       setState(() {
-        isLoadingMore = false;
-        visibleProducts.addAll(nextProducts);
+        isLoadingMore = true;
+
+        // Calculate the actual end index, ensuring it doesn't exceed the list length
+        final actualEnd = end > widget.shopProductList.length
+            ? widget.shopProductList.length
+            : end;
+
+        // Load the next items
+        visibleProducts.addAll(widget.shopProductList.sublist(start, actualEnd));
+
+        // Increment the page if there are more items to load
         currentPage++;
+
+        // Adjust itemsPerPage if the number of products is less than 18
+        itemsPerPage = widget.shopProductList.length < 18
+            ? widget.shopProductList.length
+            : 18;
+
+        // Set isLoadingMore to false if we've reached the end of the list
+        isLoadingMore = actualEnd >= widget.shopProductList.length;
       });
     }
   }
+
+
 
   void _onScroll() {
     if (_scrollController.position.pixels ==
@@ -65,7 +83,7 @@ class _ShopPageState extends State<ShopPage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Theme.of(context).colorScheme.onPrimary,
+        color: Theme.of(context).colorScheme.background,
         child: Row(
           children: [
             SideNavigationBar(widget._menuOptions, '/shop'),
@@ -73,34 +91,45 @@ class _ShopPageState extends State<ShopPage> {
               flex: 9,
               child: Padding(
                 padding: const EdgeInsets.only(top: 35, right: 50,left:50),
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Shop',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontSize: 75,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Shop',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 75,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 25,),
-                      Wrap(
-                        direction: Axis.horizontal,
-                        alignment: WrapAlignment.start,
-                        spacing: 16.0,
-                        runSpacing: 20.0,
-                        children: visibleProducts.map((product) {
-                          return BoxImageProductHover(product);
-                        }).toList(),
-                      ),
-                      if (isLoadingMore)
-                        const LoadingBarCube(10.0, 400),
-                    ],
+                        const SizedBox(height: 25,),
+                        Center(
+                          child: Wrap(
+                            direction: Axis.horizontal,
+                            alignment: WrapAlignment.start,
+                            spacing: 16.0,
+                            runSpacing: 20.0,
+                            children: visibleProducts.map((product) {
+                              return BoxImageProductHover(product);
+                            }).toList(),
+                          ),
+                        ),
+                        if (isLoadingMore)
+                          const Column(
+                            children: [
+                              SizedBox(height: 15,),
+                              LoadingBarCube(10.0, 400),
+                            ],
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ),

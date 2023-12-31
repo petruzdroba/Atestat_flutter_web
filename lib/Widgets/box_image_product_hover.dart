@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/Product.dart';
@@ -41,10 +43,26 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
           width: !didHover ? 500 : 525,
           height: !didHover ? 250 : 275,
           decoration: BoxDecoration(
-            color: !didHover ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.onPrimary,
+            color: !didHover
+                ? Theme
+                .of(context)
+                .colorScheme
+                .background
+                : Theme
+                .of(context)
+                .colorScheme
+                .onPrimary,
             border: Border.all(
                 width: !didHover ? 1.0 : 2.0,
-                color: didHover == false ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.outline),
+                color: didHover == false
+                    ? Theme
+                    .of(context)
+                    .colorScheme
+                    .primary
+                    : Theme
+                    .of(context)
+                    .colorScheme
+                    .outline),
           ),
           child: Stack(
             children: [
@@ -52,9 +70,12 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                 children: [
                   Expanded(
                     flex: 3,
-                    child: Image.network(
-                      widget.product.image,
-                      fit: BoxFit.fitHeight,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Image.network(
+                        widget.product.image,
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
                   ),
                   const Expanded(child: SizedBox())
@@ -67,13 +88,21 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                         begin: Alignment.centerRight,
                         end: Alignment.centerLeft,
                         stops: [
-                      !didHover ? 0.40 : 0.55,
-                      1.0
-                    ],
+                          !didHover ? 0.40 : 0.55,
+                          1.0
+                        ],
                         colors: [
-                      !didHover ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.onPrimary,
-                      Colors.transparent
-                    ])),
+                          !didHover
+                              ? Theme
+                              .of(context)
+                              .colorScheme
+                              .background
+                              : Theme
+                              .of(context)
+                              .colorScheme
+                              .onPrimary,
+                          Colors.transparent
+                        ])),
                 child: Row(
                   children: [
                     const Expanded(flex: 7, child: SizedBox()),
@@ -92,12 +121,19 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 duration: const Duration(milliseconds: 220),
                                 style: GoogleFonts.mukta(
                                   color: !didHover
-                                      ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.outline,
+                                      ? Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .primary
+                                      : Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .outline,
                                   fontSize: !didHover ? 20 : 22,
-                                  fontWeight: !didHover
-                                      ? medium
-                                      : extraBold,
-                                  decoration: !didHover? TextDecoration.none : TextDecoration.underline,
+                                  fontWeight: !didHover ? medium : extraBold,
+                                  decoration: !didHover
+                                      ? TextDecoration.none
+                                      : TextDecoration.underline,
                                 ),
                                 child: Text(
                                   widget.product.name,
@@ -110,14 +146,23 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                               AnimatedDefaultTextStyle(
                                 duration: const Duration(milliseconds: 220),
                                 style: GoogleFonts.mukta(
-                                  color: !didHover ? colorGray : Theme.of(context).colorScheme.primary,
+                                  color: !didHover
+                                      ? colorGray
+                                      : Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .primary,
                                   fontSize: !didHover ? 14 : 15,
                                   height: 1.0,
                                 ),
                                 child: Text(
-                                  !didHover
-                                      ? '${widget.product.description.substring(0, 75)}(...)'
-                                      : widget.product.description,
+                                  didHover
+                                      ? '${widget.product.description.substring(
+                                      0, min(75,
+                                      widget.product.description.length))}(...)'
+                                      : '${widget.product.description.substring(
+                                      0, min(120,
+                                      widget.product.description.length))}(...)',
                                   softWrap: true,
                                 ),
                               ),
@@ -128,16 +173,20 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 duration: const Duration(milliseconds: 220),
                                 style: GoogleFonts.mukta(
                                   color: !didHover
-                                      ? Theme.of(context).colorScheme.outline
-                                      : Theme.of(context).colorScheme.onSecondary,
+                                      ? Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .outline
+                                      : Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .onSecondary,
                                   fontSize: !didHover ? 18 : 16,
-                                  fontWeight: !didHover
-                                      ? medium
-                                      : bold,
+                                  fontWeight: !didHover ? medium : bold,
                                   height: 0.9,
                                 ),
                                 child: Text(
-                                  '${widget.product.list.first} vs. ${widget.product.list.last}',
+                                  widget.product.author,
                                   softWrap: true,
                                 ),
                               ),
@@ -147,11 +196,16 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                               AnimatedDefaultTextStyle(
                                   style: GoogleFonts.mukta(
                                     color: !didHover
-                                        ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.outline,
+                                        ? Theme
+                                        .of(context)
+                                        .colorScheme
+                                        .primary
+                                        : Theme
+                                        .of(context)
+                                        .colorScheme
+                                        .outline,
                                     fontSize: !didHover ? 16 : 20,
-                                    fontWeight: !didHover
-                                        ? medium
-                                        : semiBold,
+                                    fontWeight: !didHover ? medium : semiBold,
                                   ),
                                   duration: const Duration(milliseconds: 500),
                                   child: Text('€${widget.product.price}'))
