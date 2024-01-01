@@ -88,7 +88,7 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                         begin: Alignment.centerRight,
                         end: Alignment.centerLeft,
                         stops: [
-                          !didHover ? 0.40 : 0.55,
+                          !didHover ? 0.45 : 0.50,
                           1.0
                         ],
                         colors: [
@@ -107,7 +107,7 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                   children: [
                     const Expanded(flex: 7, child: SizedBox()),
                     Expanded(
-                        flex: !didHover ? 4 : 7,
+                        flex: !didHover ? 5 : 7,
                         child: Padding(
                           padding: EdgeInsets.only(
                               top: !didHover ? 15.0 : 20.0,
@@ -158,10 +158,10 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 child: Text(
                                   didHover
                                       ? '${widget.product.description.substring(
-                                      0, min(75,
+                                      0, min(220,
                                       widget.product.description.length))}(...)'
                                       : '${widget.product.description.substring(
-                                      0, min(120,
+                                      0, min(130,
                                       widget.product.description.length))}(...)',
                                   softWrap: true,
                                 ),

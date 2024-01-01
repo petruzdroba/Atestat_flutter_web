@@ -17,6 +17,7 @@ import '../Class/ProductDetails.dart';
 import '../Class/user.dart';
 import '../Pages/example.dart';
 import '../Pages/homepage.dart';
+import '../Pages/login_page.dart';
 import '../Pages/shop_page.dart';
 
 final routerDelegate = BeamerDelegate(
@@ -81,7 +82,7 @@ final routerDelegate = BeamerDelegate(
       '/profile/:username': (context, state, data) {
         var username = state.pathParameters['username'];
         if (username == '-1') {
-          return const ErrorPage('Log in to see your profile');
+          return const LogInPage();
           //Here you can add a login and sign up page
         } else if (username!.isNotEmpty) {
           return BeamPage(
