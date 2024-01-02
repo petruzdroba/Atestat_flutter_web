@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
-import 'package:flutter_club_blaga/Widgets/button_hover.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MediumCenterBox extends StatefulWidget {
@@ -8,7 +7,11 @@ class MediumCenterBox extends StatefulWidget {
   final String title;
   final String alternate;
 
-  const MediumCenterBox({super.key, required this.child, required this.title, required this.alternate});
+  const MediumCenterBox(
+      {super.key,
+      required this.child,
+      required this.title,
+      required this.alternate});
 
   @override
   State<MediumCenterBox> createState() => _MediumCenterBoxState();
@@ -36,15 +39,13 @@ class _MediumCenterBoxState extends State<MediumCenterBox> {
                     child: Text(
                       widget.title,
                       style: GoogleFonts.mukta(
-                        fontSize: 30,
-                        fontWeight: semiBold,
-                        color: Theme.of(context).colorScheme.onPrimary
-                      ),
+                          fontSize: 30,
+                          fontWeight: semiBold,
+                          color: Theme.of(context).colorScheme.onPrimary),
                     ),
                   ),
                 )),
             Expanded(flex: 7, child: widget.child),
-            WidgetButtonHover(),
           ],
         ),
       ),

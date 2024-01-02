@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Service/user_service.dart';
 import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
+import 'package:flutter_club_blaga/Widgets/button_finish.dart';
 import 'package:flutter_club_blaga/Widgets/medium_center_box.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:http/http.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -17,6 +20,7 @@ class _LogInPageState extends State<LogInPage> {
   TextEditingController inputPassword = TextEditingController();
 
   bool showPassword = true;
+  bool loggedIn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +74,9 @@ class _LogInPageState extends State<LogInPage> {
                         ),
                         TextFormField(
                           controller: inputPassword,
+                          validator: MultiValidator([
+                            MinLengthValidator(5, errorText: 'Required field'),
+                          ]),
                           obscureText: showPassword,
                           style: TextStyle(
                               fontSize: 26,
@@ -112,6 +119,24 @@ class _LogInPageState extends State<LogInPage> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ButtonFinish(
+                          text: 'Log In',
+                          function: () async {
+                            if (_formKey.currentState!.validate()) {
+                              Response response = await logInUser(
+                                  inputUsername.text, inputPassword.text);
+                              if (response.body == 'true') {
+                                print('true');
+                              }
+                              else{
+                                print('false');
+                              }
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
