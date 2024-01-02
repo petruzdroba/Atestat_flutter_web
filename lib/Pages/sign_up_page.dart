@@ -26,6 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool showPassword = true;
   bool showRePassword = true;
+  bool alreadyExists = false;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +96,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                 return 'Username too short';
                               } else if (usernameInput.length > 20) {
                                 return 'Username too long';
+                              } else if(alreadyExists == true){
+                                return 'Username already exists';
                               }
                               return null;
                             },
@@ -257,10 +260,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             function: () async {
                               if (_formKey.currentState!.validate()) {
                                 Response response = await signUpUser(inputName.text, inputUsername.text, inputPassword.text);
-                                if (response.body == 'true') {
-                                  print('true');
+                                if (response.statusCode == 201) {
+                                  setState(() {
+                                    alreadyExists = false;
+                                  });
                                 } else {
-                                  print('false');
+                                  setState(() {
+                                    alreadyExists = true;
+                                    _formKey.currentState!.validate();
+                                    inputUsername.clear();
+                                  });
                                 }
                               }
                             },
