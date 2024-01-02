@@ -5,13 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 class MediumCenterBox extends StatefulWidget {
   final Widget child;
   final String title;
-  final String alternate;
 
   const MediumCenterBox(
       {super.key,
       required this.child,
-      required this.title,
-      required this.alternate});
+      required this.title,});
 
   @override
   State<MediumCenterBox> createState() => _MediumCenterBoxState();

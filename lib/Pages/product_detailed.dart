@@ -153,11 +153,11 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                               ),
                                             ),
                                             TextHoverColorSize(
-                                                widget._productDetails.author,
-                                                35,
-                                                Theme.of(context).colorScheme.primary,
-                                                Theme.of(context).colorScheme.outline,
-                                                () {} //Add later profile opening to seller profile
+                                                text:widget._productDetails.author,
+                                                size:35,
+                                                fromColor:Theme.of(context).colorScheme.primary,
+                                                toColor:Theme.of(context).colorScheme.outline,
+                                                function:() {} //Add later profile opening to seller profile
                                                 ),
                                           ],
                                         ),
@@ -219,10 +219,11 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                       padding: const EdgeInsets.only(
                                           top: 30, left: 20, right: 20),
                                       child: TextHoverColorSize(
-                                          widget._productDetails.description,
-                                          27,
-                                          colorGray,
-                                          Theme.of(context).colorScheme.onSecondary, () {
+                                          text:widget._productDetails.description,
+                                          size:27,
+                                          fromColor:colorGray,
+                                          toColor:Theme.of(context).colorScheme.onSecondary,
+                                          function: () {
                                         Clipboard.setData(ClipboardData(
                                             text: widget
                                                 ._productDetails.description));

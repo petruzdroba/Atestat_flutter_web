@@ -7,9 +7,9 @@ class TextHoverColorSize extends StatefulWidget {
   final double size;
   final Color fromColor;
   final Color toColor;
-  final Function _function;
+  final Function function;
 
-  const TextHoverColorSize(this.text, this.size,this.fromColor, this.toColor,this._function ,{super.key});
+  const TextHoverColorSize({super.key, required this.text, required this.size, required this.fromColor, required this.toColor, required this.function});
 
   @override
   State<TextHoverColorSize> createState() => _TextHoverColorSizeState();
@@ -22,7 +22,7 @@ class _TextHoverColorSizeState extends State<TextHoverColorSize> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        widget._function();
+        widget.function();
       },
       child: MouseRegion(
         onEnter: (f) {

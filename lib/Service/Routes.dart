@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/PopularProduct.dart';
+import 'package:flutter_club_blaga/Class/current_username.dart';
 import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
 import 'package:flutter_club_blaga/Pages/profile_page.dart';
+import 'package:flutter_club_blaga/Pages/sign_up_page.dart';
 import 'package:flutter_club_blaga/Service/product_service.dart';
 import 'package:flutter_club_blaga/Service/test_service.dart';
 import 'package:flutter_club_blaga/Service/user_service.dart';
@@ -82,8 +84,11 @@ final routerDelegate = BeamerDelegate(
       '/profile/:username': (context, state, data) {
         var username = state.pathParameters['username'];
         if (username == '-1') {
-          return const LogInPage();
-          //Here you can add a login and sign up page
+          // Schedule the navigation to happen after the build completes
+          Future.delayed(Duration.zero, () {
+            context.beamToNamed('/login'); // Navigate to login page
+          });
+          return const SizedBox.shrink();
         } else if (username!.isNotEmpty) {
           return BeamPage(
             key: ValueKey("profile $username"),
@@ -107,6 +112,36 @@ final routerDelegate = BeamerDelegate(
                   }
                 }),
           );
+        }
+      },
+      '/login':(context,state,data){
+        if(currentUsername.currentusername == '-1'){
+          return const BeamPage(
+              child: LogInPage(),
+              title: "Log In",
+              key: ValueKey("log_in")
+          );
+        }
+        else{
+          Future.delayed(Duration.zero, () {
+            context.beamToNamed('/home');
+          });
+          return const SizedBox.shrink();
+        }
+      },
+      '/signup':(context,state,data){
+        if(currentUsername.currentusername == '-1'){
+          return const BeamPage(
+              child: SignUpPage(),
+              title: "Sign Up",
+              key: ValueKey("sign_up")
+          );
+        }
+        else{
+          Future.delayed(Duration.zero, () {
+            context.beamToNamed('/home');
+          });
+          return const SizedBox.shrink();
         }
       },
       '/shop': (context, state, data) {

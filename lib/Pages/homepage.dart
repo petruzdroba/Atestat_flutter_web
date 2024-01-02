@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<MenuOption> _menuOptions = options;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +52,8 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                 'Home',
                                 style: GoogleFonts.mukta(
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     fontSize: 75,
                                     fontWeight: bold,
                                     decoration: TextDecoration.underline),
@@ -59,7 +61,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Flexible(
                               child: Container(
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         left: 20,
@@ -67,13 +70,18 @@ class _HomePageState extends State<HomePage> {
                                         top: 15,
                                         bottom: 15),
                                     child: TextHoverColorSize(
-                                        'Most popular item',
-                                        50,
-                                        Theme.of(context).colorScheme.primary,
-                                        Theme.of(context).colorScheme.outline, () {
-                                      Beamer.of(context).popToNamed(
-                                          '/shop/product${widget._popularProduct.id}');
-                                    }),
+                                        text: 'Most popular item',
+                                        size: 50,
+                                        fromColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        toColor: Theme.of(context)
+                                            .colorScheme
+                                            .outline,
+                                        function: () {
+                                          Beamer.of(context).popToNamed(
+                                              '/shop/product${widget._popularProduct.id}');
+                                        }),
                                   )),
                             )
                           ],
@@ -89,21 +97,26 @@ class _HomePageState extends State<HomePage> {
                                     widget._popularProduct.name,
                                     style: GoogleFonts.mukta(
                                       fontSize: 60,
-                                      color: Theme.of(context).colorScheme.primary,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                       fontWeight: medium,
                                     ),
                                   ),
                                 ),
                                 Flexible(
                                   child: TextHoverColorSize(
-                                      '€${widget._popularProduct.price}',
-                                      45,
-                                      Theme.of(context).colorScheme.primary,
-                                      Theme.of(context).colorScheme.background, () {
-                                    Clipboard.setData(ClipboardData(
-                                        text:
-                                            '€${widget._popularProduct.price}'));
-                                  }),
+                                      text: '€${widget._popularProduct.price}',
+                                      size: 45,
+                                      fromColor:
+                                          Theme.of(context).colorScheme.primary,
+                                      toColor: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      function: () {
+                                        Clipboard.setData(ClipboardData(
+                                            text:
+                                                '€${widget._popularProduct.price}'));
+                                      }),
                                 )
                               ],
                             ),
@@ -113,7 +126,8 @@ class _HomePageState extends State<HomePage> {
                                   child: Text(
                                     'sold by   ',
                                     style: GoogleFonts.mukta(
-                                      color: Theme.of(context).colorScheme.primary,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                       fontSize: 23,
                                       fontWeight: light,
                                     ),
@@ -121,11 +135,15 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Flexible(
                                   child: TextHoverColorSize(
-                                      widget._popularProduct.author,
-                                      35,
-                                      Theme.of(context).colorScheme.primary,
-                                      Theme.of(context).colorScheme.background,
-                                      () {} //Add later profile opening to seller profile
+                                      text: widget._popularProduct.author,
+                                      size: 35,
+                                      fromColor:
+                                          Theme.of(context).colorScheme.primary,
+                                      toColor: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      function:
+                                          () {} //Add later profile opening to seller profile
                                       ),
                                 ),
                               ],
