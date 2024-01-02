@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'corsheaders',
+    'rest_framework',
     'web_backend.apps.WebBackendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,9 +126,18 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+}
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:2702",
 
-    "http://localhost:52611"
+    "http://localhost:55928"
 ]

@@ -1,9 +1,16 @@
+import json
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-import json
-from .models import TestModel, PopularProductModel, DetailedProductModel
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.auth.hashers import make_password, check_password
+from django.db import IntegrityError
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import TestModel, PopularProductModel, DetailedProductModel, CustomUser
+from .serializers import CustomUserSerializer
+
 
 @csrf_exempt  
 def get_string(request):
@@ -72,3 +79,43 @@ def getProductById(request, id):
         return JsonResponse(response_data)
     except DetailedProductModel.DoesNotExist:
         return JsonResponse({'message': 'Product not found'}, status=404)
+
+class UserRegistrationView(APIView):
+    def post(self, request):
+        data_from_frontend = request.data
+
+        hashed_password = make_password(data_from_frontend.get('password'))
+
+        data_from_frontend['password'] = hashed_password
+
+        try:
+            new_user = CustomUser.objects.create(
+                name=data_from_frontend.get('name'),
+                username=data_from_frontend.get('username'),
+                password=hashed_password
+            )
+
+            serializer = CustomUserSerializer(new_user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        except IntegrityError as e:
+            return Response({'detail': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UserLoginView(APIView):
+    def post(self,request):
+        data_from_frontend = request.data
+
+        try:
+
+            user = CustomUser.objects.get(username=data_from_frontend.get('username'))
+
+            entered_password = data_from_frontend.get('password')
+
+            if check_password(entered_password, user.password):
+                serializer = CustomUserSerializer(user)
+
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else: 
+                return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        except CustomUser.DoesNotExist:
+            return Response({'detail': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
