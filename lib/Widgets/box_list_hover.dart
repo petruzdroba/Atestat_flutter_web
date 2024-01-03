@@ -56,7 +56,7 @@ class _BoxListHoverState extends State<BoxListHover> {
           child: Stack(
             children: [
               Visibility(
-                visible: widget.route == widget._currentRoute,
+                visible: widget.route.contains(widget._currentRoute),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

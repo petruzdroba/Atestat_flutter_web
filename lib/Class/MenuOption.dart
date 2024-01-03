@@ -16,3 +16,13 @@ List<MenuOption> options = [
   MenuOption('Sell', Icons.sell_rounded, '/sell'),
   MenuOption('Example2', Icons.ring_volume, '/example')
 ];
+
+void menuReset(){
+  options = [
+    MenuOption('Home', Icons.home, '/home'),
+    MenuOption('Profile', Icons.person, '/profile/${currentUsername.currentusername}'),
+    MenuOption('Shop', Icons.shopping_basket, '/shop'),
+    MenuOption('Sell', Icons.sell_rounded, '/sell'),
+    MenuOption('Example2', Icons.ring_volume, '/example')
+  ];
+}

@@ -83,8 +83,6 @@ final routerDelegate = BeamerDelegate(
       },
       '/profile/:username': (context, state, data) {
         var username = state.pathParameters['username'];
-        // print(currentUsername.currentusername);
-        // print(username);
         if (currentUsername.currentusername == '-1') {
           Future.delayed(Duration.zero, () {
             context.beamToNamed('/login', replaceRouteInformation: true);//essential to remove the previous page so you can go back to home
