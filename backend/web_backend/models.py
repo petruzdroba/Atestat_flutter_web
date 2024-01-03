@@ -28,6 +28,7 @@ class CustomUser(models.Model):
     name = models.CharField(max_length=255)
     username = models.CharField(max_length=255, unique=True, primary_key = True)
     password = models.CharField(max_length=255)
+    pfp = models.CharField(max_length=255, default = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gru9G3h6HXfS6f2F9S0gTm49NAyDwU2jiQ&usqp=CAU')
 
     def __str__(self):
         return self.username

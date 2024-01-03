@@ -80,6 +80,18 @@ def getProductById(request, id):
     except DetailedProductModel.DoesNotExist:
         return JsonResponse({'message': 'Product not found'}, status=404)
 
+def getUserByUsername(request, input_username):
+    try:
+        user = CustomUser.objects.get(username = input_username)
+        response_data = {
+        'name':user.name,
+        'username':user.username,
+        'pfp':user.pfp
+        }
+        return JsonResponse(response_data)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'message':'User not found'}, status=404)
+
 class UserRegistrationView(APIView):
     def post(self, request):
         data_from_frontend = request.data
@@ -92,7 +104,8 @@ class UserRegistrationView(APIView):
             new_user = CustomUser.objects.create(
                 name=data_from_frontend.get('name'),
                 username=data_from_frontend.get('username'),
-                password=hashed_password
+                password=hashed_password,
+                pfp='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gru9G3h6HXfS6f2F9S0gTm49NAyDwU2jiQ&usqp=CAU',
             )
 
             serializer = CustomUserSerializer(new_user)
