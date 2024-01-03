@@ -11,10 +11,10 @@ class PopularProductModel(models.Model):
     author = models.CharField(max_length=150)
     gif = models.CharField(max_length=255)
 
-class ProjectModel(models.Model):
+class DetailedProductModel(models.Model):
     name = models.CharField(max_length=255)
     price = models.FloatField()
-    id = models.IntegerField()
+    product_id = models.IntegerField(primary_key = True)
     image = models.CharField(max_length=255)
     description = models.TextField()
     list_data = models.JSONField()  # Assuming 'list' is a JSON array in the original JSON
@@ -23,3 +23,12 @@ class ProjectModel(models.Model):
 
     def __str__(self):
         return self.name
+
+class CustomUser(models.Model):
+    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, unique=True, primary_key = True)
+    password = models.CharField(max_length=255)
+    pfp = models.CharField(max_length=255, default = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gru9G3h6HXfS6f2F9S0gTm49NAyDwU2jiQ&usqp=CAU')
+
+    def __str__(self):
+        return self.username
