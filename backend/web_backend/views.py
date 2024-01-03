@@ -117,7 +117,6 @@ class UserRegistrationView(APIView):
 class UserLoginView(APIView):
     def post(self,request):
         data_from_frontend = request.data
-
         try:
 
             user = CustomUser.objects.get(username=data_from_frontend.get('username'))
@@ -132,3 +131,19 @@ class UserLoginView(APIView):
                 return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         except CustomUser.DoesNotExist:
             return Response({'detail': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+class DeleteUserAccount(APIView):
+    def post(self,request):
+        data_from_frontend = request.data
+        try:
+            user = CustomUser.objects.get(username=data_from_frontend.get('username'))
+
+            entered_password = data_from_frontend.get('password')
+
+            if check_password(entered_password, user.password):
+                user.delete()
+                return Response({"message": "Account deleted successfully"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Incorrect password"}, status=status.HTTP_401_UNAUTHORIZED)
+        except:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)

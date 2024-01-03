@@ -11,5 +11,6 @@ urlpatterns = [
     path('getUserByUsername/<str:input_username>/', web_views.getUserByUsername, name = 'getUserByUsername'),
     path('UserRegistrationView/', web_views.UserRegistrationView.as_view(), name = 'UserRegistrationView'),
     path('UserLoginView/', web_views.UserLoginView.as_view(), name = 'UserLoginView'),
+    path('DeleteUserAccount/', web_views.DeleteUserAccount.as_view(), name = 'DeleteUserAccount'),
     # Add any other URL patterns as needed
 ]
