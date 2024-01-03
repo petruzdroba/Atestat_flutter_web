@@ -96,7 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 return 'Username too short';
                               } else if (usernameInput.length > 20) {
                                 return 'Username too long';
-                              } else if(alreadyExists == true){
+                              } else if (alreadyExists == true) {
                                 return 'Username already exists';
                               }
                               return null;
@@ -259,10 +259,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             text: 'Create account',
                             function: () async {
                               if (_formKey.currentState!.validate()) {
-                                Response response = await signUpUser(inputName.text, inputUsername.text, inputPassword.text);
+                                Response response = await signUpUser(
+                                    inputName.text,
+                                    inputUsername.text,
+                                    inputPassword.text);
                                 if (response.statusCode == 201) {
                                   setState(() {
                                     alreadyExists = false;
+                                    Beamer.of(context).beamToNamed('/home',
+                                        replaceRouteInformation: true);
+                                    Beamer.of(context).beamToNamed('/login');
                                   });
                                 } else {
                                   setState(() {
