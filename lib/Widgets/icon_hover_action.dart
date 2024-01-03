@@ -33,8 +33,8 @@ class _IconHoverActionState extends State<IconHoverAction> {
           });
         },
         child: SizedBox(
-          width: 100,
-          height: 10,
+          width: 50,
+          height: 50,
           child: Icon(
             widget.icon,
             size: 50,

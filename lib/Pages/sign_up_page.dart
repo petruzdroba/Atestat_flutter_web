@@ -266,6 +266,32 @@ class _SignUpPageState extends State<SignUpPage> {
                                 if (response.statusCode == 201) {
                                   setState(() {
                                     alreadyExists = false;
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.green,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(20)),
+                                        content: Row(
+                                          children: [
+                                            Icon(Icons.check,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .background),
+                                            Text(
+                                              'User ${inputUsername.text} created',
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .background,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
                                     Beamer.of(context).beamToNamed('/home',
                                         replaceRouteInformation: true);
                                     Beamer.of(context).beamToNamed('/login');

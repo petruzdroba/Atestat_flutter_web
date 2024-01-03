@@ -4,6 +4,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/PopularProduct.dart';
 import 'package:flutter_club_blaga/Class/current_username.dart';
+import 'package:flutter_club_blaga/Pages/delete_current_user.dart';
 import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
 import 'package:flutter_club_blaga/Pages/profile_page.dart';
@@ -83,12 +84,13 @@ final routerDelegate = BeamerDelegate(
       },
       '/profile/:username': (context, state, data) {
         var username = state.pathParameters['username'];
-        if (currentUsername.currentusername == '-1') {
+        if (currentUsername.currentusername == '-1' && currentUsername.currentusername == username) {
           Future.delayed(Duration.zero, () {
             context.beamToNamed('/login', replaceRouteInformation: true);//essential to remove the previous page so you can go back to home
           });
           return const SizedBox.shrink();
-        } else if (username!.isNotEmpty) {
+        }
+        if (username!.isNotEmpty) {
           return BeamPage(
             key: ValueKey("profile $username"),
             title: "Profile $username",
@@ -141,6 +143,18 @@ final routerDelegate = BeamerDelegate(
             context.beamToNamed('/home');
           });
           return const SizedBox.shrink();
+        }
+      },
+      '/delete_user':(context,state,data){
+        if(currentUsername.currentusername != '-1'){
+          return const BeamPage(
+              child: DeleteCurrentUser(),
+              title: "Delete User",
+              key: ValueKey("delete_user")
+          );
+        }
+        else{
+          return const ErrorPage('Impossible action !');
         }
       },
       '/shop': (context, state, data) {

@@ -54,26 +54,26 @@ class _LogInPageState extends State<LogInPage> {
                           children: [
                             TextFormField(
                               controller: inputUsername,
-                              validator: (username){
-                                if(username!.isEmpty){
+                              validator: (username) {
+                                if (username!.isEmpty) {
                                   return 'Required field';
-                                }else if(userExists == false){
+                                } else if (userExists == false) {
                                   return 'User not found';
                                 }
                                 return null;
                               },
                               style: TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: medium,
-                                  color: Theme.of(context).colorScheme.primary,
+                                fontSize: 26,
+                                fontWeight: medium,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                               autocorrect: false,
                               decoration: InputDecoration(
                                 hintText: 'Username',
                                 hintStyle: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: regular,
-                                    color: Theme.of(context).colorScheme.outline,
+                                  fontSize: 25,
+                                  fontWeight: regular,
+                                  color: Theme.of(context).colorScheme.outline,
                                 ),
                                 prefixIcon: Icon(
                                   Icons.person,
@@ -82,8 +82,8 @@ class _LogInPageState extends State<LogInPage> {
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 20),
                                 border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    gapPadding: 1,
+                                  borderRadius: BorderRadius.circular(15),
+                                  gapPadding: 1,
                                 ),
                               ),
                             ),
@@ -92,10 +92,10 @@ class _LogInPageState extends State<LogInPage> {
                             ),
                             TextFormField(
                               controller: inputPassword,
-                              validator: (password){
-                                if(password!.isEmpty){
+                              validator: (password) {
+                                if (password!.isEmpty) {
                                   return 'Required field';
-                                }else if(correctPass == false){
+                                } else if (correctPass == false) {
                                   return 'Password is wrong';
                                 }
                                 return null;
@@ -112,7 +112,8 @@ class _LogInPageState extends State<LogInPage> {
                                 hintStyle: TextStyle(
                                     fontSize: 25,
                                     fontWeight: regular,
-                                    color: Theme.of(context).colorScheme.outline),
+                                    color:
+                                        Theme.of(context).colorScheme.outline),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
                                     gapPadding: 1),
@@ -131,13 +132,15 @@ class _LogInPageState extends State<LogInPage> {
                                   icon: showPassword
                                       ? Icon(
                                           Icons.visibility,
-                                          color:
-                                              Theme.of(context).colorScheme.outline,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .outline,
                                         )
                                       : Icon(
                                           Icons.visibility_off,
-                                          color:
-                                              Theme.of(context).colorScheme.primary,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
                                         ),
                                 ),
                               ),
@@ -151,28 +154,35 @@ class _LogInPageState extends State<LogInPage> {
                                 if (_formKey.currentState!.validate()) {
                                   Response response = await logInUser(
                                       inputUsername.text, inputPassword.text);
-                                  if (response.statusCode == 200){
-                                    setState(() {
-                                      currentUsername.currentusername = inputUsername.text;
-                                      menuReset();
-                                      Beamer.of(context)
-                                          .beamToNamed('/home', replaceRouteInformation: true);
-                                    });
-                                  } else if(response.statusCode == 401) {
-                                    setState(() {
-                                      correctPass = false;
-                                      _formKey.currentState!.validate();
-                                      inputPassword.clear();
-                                      correctPass = true;
-                                    });
-                                  }else{
-                                    setState(() {
-                                      userExists = false;
-                                      _formKey.currentState!.validate();
-                                      inputPassword.clear();
-                                      inputUsername.clear();
-                                      userExists = true;
-                                    });
+                                  if (response.statusCode == 200) {
+                                    setState(
+                                      () {
+                                        currentUsername.currentusername =
+                                            inputUsername.text;
+                                        menuReset();
+                                        Beamer.of(context).beamToNamed('/home',
+                                            replaceRouteInformation: true);
+                                      },
+                                    );
+                                  } else if (response.statusCode == 401) {
+                                    setState(
+                                      () {
+                                        correctPass = false;
+                                        _formKey.currentState!.validate();
+                                        inputPassword.clear();
+                                        correctPass = true;
+                                      },
+                                    );
+                                  } else {
+                                    setState(
+                                      () {
+                                        userExists = false;
+                                        _formKey.currentState!.validate();
+                                        inputPassword.clear();
+                                        inputUsername.clear();
+                                        userExists = true;
+                                      },
+                                    );
                                   }
                                 }
                               },

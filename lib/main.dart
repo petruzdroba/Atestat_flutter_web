@@ -24,7 +24,6 @@ class _MyAppState extends State<MyApp> {
   void initState(){
     super.initState();
     currentTheme.addListener(() {
-      print('aaa');
       setState(() {
 
       });

@@ -37,3 +37,16 @@ Future<http.Response> signUpUser(String name,String username, String password) {
     }),
   );
 }
+
+Future<http.Response> deleteUser(String username, String password) {
+  return http.post(
+    Uri.parse('http://localhost:8000/DeleteUserAccount/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'username':username,
+      'password':password
+    }),
+  );
+}
