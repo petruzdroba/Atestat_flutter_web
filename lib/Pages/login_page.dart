@@ -1,5 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Class/current_username.dart';
 import 'package:flutter_club_blaga/Service/user_service.dart';
 import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
 import 'package:flutter_club_blaga/Widgets/button_finish.dart';
@@ -149,8 +150,13 @@ class _LogInPageState extends State<LogInPage> {
                                 if (_formKey.currentState!.validate()) {
                                   Response response = await logInUser(
                                       inputUsername.text, inputPassword.text);
-                                  if (response.statusCode == 200) {
-                                    print('true - 1');
+                                  if (response.statusCode == 200){
+                                    setState(() {
+                                      currentUsername.currentusername = inputUsername.text;
+                                      print( currentUsername.currentusername);
+                                      Beamer.of(context)
+                                          .beamToNamed('/home', replaceRouteInformation: true);
+                                    });
                                   } else if(response.statusCode == 401) {
                                     setState(() {
                                       correctPass = false;

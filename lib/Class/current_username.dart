@@ -1,5 +1,5 @@
 class CurrentUsername{
-  String _currentusername ='-1';
+  String _currentusername ='';
 
   CurrentUsername(this._currentusername);
 

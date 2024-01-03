@@ -9,8 +9,6 @@ class MenuOption {
   MenuOption(this.option, this.icon, this.route);
 }
 
-int mostPopularItemId = 20051511;
-
 List<MenuOption> options = [
   MenuOption('Home', Icons.home, '/home'),
   MenuOption('Profile', Icons.person, '/profile/${currentUsername.currentusername}'),

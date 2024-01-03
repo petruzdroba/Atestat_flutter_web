@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Class/current_username.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Class/user.dart';
@@ -29,7 +30,7 @@ class _ProfileDisplayState extends State<ProfileDisplay> {
         Stack(
           children: [
             Text(
-              'Welcome !',
+              currentUsername.currentusername == widget.user.username ?'Welcome !':'',
               style: GoogleFonts.mukta(
                 color: Theme.of(context).colorScheme.outline,
                 fontSize: 60,
