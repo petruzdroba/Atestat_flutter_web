@@ -30,7 +30,7 @@ class _OptionBuilderState extends State<OptionBuilder> {
         ),
         AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          height: !showOptions ? 0 : 100,
+          height: !showOptions ? 0 : 200,
           width: !showOptions ? 0 : 150,
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
@@ -47,6 +47,17 @@ class _OptionBuilderState extends State<OptionBuilder> {
                       Beamer.of(context).beamToNamed('/home',
                           replaceRouteInformation: true);
                     },
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                SmallOptionBoxMenu(
+                  name: 'Edit',
+                  icon: Icons.edit,
+                  color: Theme.of(context).colorScheme.primary,
+                  function: () {
+                    Beamer.of(context).beamToNamed('/edit_user');
+                  },
                 ),
                 const SizedBox(
                   height: 5,

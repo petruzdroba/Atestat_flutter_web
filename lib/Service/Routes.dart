@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/PopularProduct.dart';
 import 'package:flutter_club_blaga/Class/current_username.dart';
 import 'package:flutter_club_blaga/Pages/delete_current_user.dart';
+import 'package:flutter_club_blaga/Pages/edit_user_page.dart';
 import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
 import 'package:flutter_club_blaga/Pages/profile_page.dart';
@@ -151,6 +152,18 @@ final routerDelegate = BeamerDelegate(
               child: DeleteCurrentUser(),
               title: "Delete User",
               key: ValueKey("delete_user")
+          );
+        }
+        else{
+          return const ErrorPage('Impossible action !');
+        }
+      },
+      '/edit_user':(context,state,data){
+        if(currentUsername.currentusername != '1'){
+          return const BeamPage(
+              child: EditUserPage(),
+              title: "Edit ser",
+              key: ValueKey("edit_user")
           );
         }
         else{

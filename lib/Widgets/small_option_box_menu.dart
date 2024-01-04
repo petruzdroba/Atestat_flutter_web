@@ -46,6 +46,7 @@ class _SmallOptionBoxMenuState extends State<SmallOptionBoxMenu> {
               child: Row(
                 children: [
                   Icon(widget.icon, color: widget.color,),
+                  const SizedBox(width: 3,),
                   Text(widget.name, style: TextStyle(color: widget.color, fontSize: 18),),
                 ],
               ),

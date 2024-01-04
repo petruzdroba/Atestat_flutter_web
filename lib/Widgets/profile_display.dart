@@ -79,7 +79,7 @@ class _ProfileDisplayState extends State<ProfileDisplay> {
             ),
           ],
         ),
-        OptionBuilder(),
+        const OptionBuilder(),
       ],
     );
   }
