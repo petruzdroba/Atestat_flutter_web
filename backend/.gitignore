@@ -3,9 +3,6 @@
 # Ignore virtual environment
 venv/
 
-# Ignore database
-db.sqlite3
-
 # Ignore static files
 staticfiles/
 
