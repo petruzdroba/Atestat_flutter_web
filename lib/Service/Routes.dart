@@ -9,6 +9,7 @@ import 'package:flutter_club_blaga/Pages/edit_user_page.dart';
 import 'package:flutter_club_blaga/Pages/error_page.dart';
 import 'package:flutter_club_blaga/Pages/product_detailed.dart';
 import 'package:flutter_club_blaga/Pages/profile_page.dart';
+import 'package:flutter_club_blaga/Pages/sell_page.dart';
 import 'package:flutter_club_blaga/Pages/sign_up_page.dart';
 import 'package:flutter_club_blaga/Service/product_service.dart';
 import 'package:flutter_club_blaga/Service/test_service.dart';
@@ -242,11 +243,19 @@ final routerDelegate = BeamerDelegate(
         }
       },
       '/sell': (context, state, data) {
-        return const BeamPage(
-          key: ValueKey('sell_page'),
-          title: 'Sell item',
-          child: Placeholder(),
-        );
+        if(currentUsername.currentusername != '1'){
+          return const BeamPage(
+              child: SellPage(),
+              title: "Sell",
+              key: ValueKey("Sell_Page")
+          );
+        }
+        else{
+          Future.delayed(Duration.zero, () {
+            context.beamToNamed('/login', replaceRouteInformation: true);//essential to remove the previous page so you can go back to home
+          });
+          return const SizedBox.shrink();
+        }
       },
     },
   ),
