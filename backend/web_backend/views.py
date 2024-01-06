@@ -5,11 +5,12 @@ from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import IntegrityError
+from django.db.models import Max
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import TestModel, PopularProductModel, DetailedProductModel, CustomUser
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, DetailedProductSerializer
 
 
 @csrf_exempt  
@@ -72,7 +73,6 @@ def getProductById(request, id):
         'id':product.product_id,
         'image':product.image,
         'description':product.description,
-        'list':product.list_data,
         'author':product.author,
         'images':product.images
         }
@@ -80,17 +80,64 @@ def getProductById(request, id):
     except DetailedProductModel.DoesNotExist:
         return JsonResponse({'message': 'Product not found'}, status=404)
 
+class ProductSellView(APIView):
+    def post(self, request):
+        data_from_frontend = request.data
+
+        try:
+
+            max_product_id = DetailedProductModel.objects.all().aggregate(Max('product_id'))['product_id__max']
+            new_product_id = max_product_id + 1 if max_product_id is not None else 1
+
+            new_product = DetailedProductModel.objects.create(
+                name = data_from_frontend.get('name'),
+                price = data_from_frontend.get('price'),
+                product_id = new_product_id,
+                image = data_from_frontend.get('image'),
+                description = data_from_frontend.get('description'),
+                author = data_from_frontend.get('author'),
+                images = data_from_frontend.get('images')
+                )
+            serializer = DetailedProductSerializer(new_product)
+            response_data = {'id': new_product.product_id, **serializer.data}
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        except IntegrityError as e:
+            return Response({'detail': 'Product already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+class AddProductIdView(APIView):
+    def post(self, request):
+        data_from_frontend = request.data
+        try:
+            user = CustomUser.objects.get(username=data_from_frontend.get('username'))
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'message': 'User not found'}, status=404)
+
+        product_id = data_from_frontend.get('product_id')
+
+        if product_id is not None:
+            try:
+                user.add_product(product_id)
+                return JsonResponse({'message': f'Product ID {product_id} added to user {user.username}'}, status=201)
+            except DetailedProductModel.DoesNotExist:
+                return JsonResponse({'message': 'Product not found'}, status=404)
+        else:
+            return JsonResponse({'message': 'Product ID not provided'}, status=400)
+
+
 def getUserByUsername(request, input_username):
     try:
-        user = CustomUser.objects.get(username = input_username)
+        user = CustomUser.objects.get(username=input_username)
+        created_product_ids = list(user.created_products.values_list('created_products_id', flat=True))
+        
         response_data = {
-        'name':user.name,
-        'username':user.username,
-        'pfp':user.pfp
+            'name': user.name,
+            'username': user.username,
+            'pfp': user.pfp,
+            'created_products_id': created_product_ids
         }
         return JsonResponse(response_data)
     except CustomUser.DoesNotExist:
-        return JsonResponse({'message':'User not found'}, status=404)
+        return JsonResponse({'message': 'User not found'}, status=404)
 
 class UserRegistrationView(APIView):
     def post(self, request):

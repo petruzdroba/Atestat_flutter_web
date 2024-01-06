@@ -17,7 +17,6 @@ class DetailedProductModel(models.Model):
     product_id = models.IntegerField(primary_key = True)
     image = models.CharField(max_length=255)
     description = models.TextField()
-    list_data = models.JSONField()  # Assuming 'list' is a JSON array in the original JSON
     author = models.CharField(max_length=255)
     images = models.JSONField()  # Assuming 'images' is a JSON array in the original JSON
 
@@ -26,9 +25,17 @@ class DetailedProductModel(models.Model):
 
 class CustomUser(models.Model):
     name = models.CharField(max_length=255)
-    username = models.CharField(max_length=255, unique=True, primary_key = True)
+    username = models.CharField(max_length=255, unique=True, primary_key=True)
     password = models.CharField(max_length=255)
-    pfp = models.CharField(max_length=255, default = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gru9G3h6HXfS6f2F9S0gTm49NAyDwU2jiQ&usqp=CAU')
+    pfp = models.CharField(max_length=255, default='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gru9G3h6HXfS6f2F9S0gTm49NAyDwU2jiQ&usqp=CAU')
+    created_products = models.JSONField(blank = True, null = True)
+
+    def add_product(self, product_id):
+        if self.created_products is None:
+            self.created_products = []
+
+        self.created_products.append(int(product_id))
+        self.save()
 
     def __str__(self):
         return self.username

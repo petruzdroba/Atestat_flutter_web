@@ -12,5 +12,6 @@ urlpatterns = [
     path('UserRegistrationView/', web_views.UserRegistrationView.as_view(), name = 'UserRegistrationView'),
     path('UserLoginView/', web_views.UserLoginView.as_view(), name = 'UserLoginView'),
     path('DeleteUserAccount/', web_views.DeleteUserAccount.as_view(), name = 'DeleteUserAccount'),
-    # Add any other URL patterns as needed
+    path('ProductSellView/', web_views.ProductSellView.as_view(), name = 'ProductSellView'),
+    path('AddProductIdView/', web_views.AddProductIdView.as_view(), name = 'AddProductIdView')
 ]
