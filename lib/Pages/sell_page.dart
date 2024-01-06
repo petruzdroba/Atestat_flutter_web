@@ -1,10 +1,19 @@
+import 'dart:convert';
+
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Class/current_username.dart';
+import 'package:flutter_club_blaga/Service/product_service.dart';
+import 'package:flutter_club_blaga/Service/user_service.dart';
 import 'package:flutter_club_blaga/Widgets/image_display_list.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:http/http.dart';
 
 import '../Widgets/Style/assets/fonts/weights.dart';
+import '../Widgets/button_finish.dart';
 import '../Widgets/medium_center_box.dart';
+import '../Widgets/text_hover_color.dart';
 
 class SellPage extends StatefulWidget {
   const SellPage({Key? key}) : super(key: key);
@@ -28,9 +37,18 @@ class _SellPageState extends State<SellPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: Theme.of(context).colorScheme.onPrimary,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height,
+        color: Theme
+            .of(context)
+            .colorScheme
+            .onPrimary,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 300, vertical: 130),
@@ -64,7 +82,10 @@ class _SellPageState extends State<SellPage> {
                                       fontSize: 26,
                                       fontWeight: medium,
                                       color:
-                                          Theme.of(context).colorScheme.primary,
+                                      Theme
+                                          .of(context)
+                                          .colorScheme
+                                          .primary,
                                     ),
                                     autocorrect: false,
                                     decoration: InputDecoration(
@@ -72,22 +93,24 @@ class _SellPageState extends State<SellPage> {
                                       hintStyle: TextStyle(
                                         fontSize: 25,
                                         fontWeight: regular,
-                                        color: Theme.of(context)
+                                        color: Theme
+                                            .of(context)
                                             .colorScheme
                                             .outline,
                                       ),
                                       prefixIcon: Icon(
                                         Icons.drive_file_rename_outline_rounded,
-                                        color: Theme.of(context)
+                                        color: Theme
+                                            .of(context)
                                             .colorScheme
                                             .outline,
                                       ),
                                       contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 20),
+                                      const EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 20),
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(15),
+                                          BorderRadius.circular(15),
                                           gapPadding: 1),
                                     ),
                                   ),
@@ -110,33 +133,38 @@ class _SellPageState extends State<SellPage> {
                                       fontSize: 26,
                                       fontWeight: medium,
                                       color:
-                                          Theme.of(context).colorScheme.primary,
+                                      Theme
+                                          .of(context)
+                                          .colorScheme
+                                          .primary,
                                     ),
                                     autocorrect: false,
                                     keyboardType:
-                                        const TextInputType.numberWithOptions(
-                                            decimal: true),
+                                    const TextInputType.numberWithOptions(
+                                        decimal: true),
                                     decoration: InputDecoration(
                                       hintText: 'Price (euro)',
                                       hintStyle: TextStyle(
                                         fontSize: 25,
                                         fontWeight: regular,
-                                        color: Theme.of(context)
+                                        color: Theme
+                                            .of(context)
                                             .colorScheme
                                             .outline,
                                       ),
                                       prefixIcon: Icon(
                                         Icons.euro,
-                                        color: Theme.of(context)
+                                        color: Theme
+                                            .of(context)
                                             .colorScheme
                                             .outline,
                                       ),
                                       contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 20),
+                                      const EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 20),
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(15),
+                                          BorderRadius.circular(15),
                                           gapPadding: 1),
                                     ),
                                   ),
@@ -158,14 +186,20 @@ class _SellPageState extends State<SellPage> {
                               style: TextStyle(
                                 fontSize: 26,
                                 fontWeight: medium,
-                                color: Theme.of(context).colorScheme.primary,
+                                color: Theme
+                                    .of(context)
+                                    .colorScheme
+                                    .primary,
                               ),
                               decoration: InputDecoration(
                                 hintText: 'Add a description for your product',
                                 hintStyle: TextStyle(
                                   fontSize: 25,
                                   fontWeight: regular,
-                                  color: Theme.of(context).colorScheme.outline,
+                                  color: Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .outline,
                                 ),
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 20),
@@ -175,7 +209,10 @@ class _SellPageState extends State<SellPage> {
                                 ),
                                 prefixIcon: Icon(
                                   Icons.description,
-                                  color: Theme.of(context).colorScheme.outline,
+                                  color: Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .outline,
                                 ),
                                 suffixIcon: IconButton(
                                   onPressed: () {
@@ -184,7 +221,10 @@ class _SellPageState extends State<SellPage> {
                                   icon: Icon(
                                     Icons.clear,
                                     color:
-                                        Theme.of(context).colorScheme.outline,
+                                    Theme
+                                        .of(context)
+                                        .colorScheme
+                                        .outline,
                                   ),
                                 ),
                               ),
@@ -199,13 +239,19 @@ class _SellPageState extends State<SellPage> {
                                 width: double.infinity,
                                 hintText: 'Link to the images of your product',
                                 hintTextColor:
-                                    Theme.of(context).colorScheme.outline,
+                                Theme
+                                    .of(context)
+                                    .colorScheme
+                                    .outline,
                                 inputDecoration: InputDecoration(
                                   hintStyle: TextStyle(
                                     fontSize: 25,
                                     fontWeight: regular,
                                     color:
-                                        Theme.of(context).colorScheme.outline,
+                                    Theme
+                                        .of(context)
+                                        .colorScheme
+                                        .outline,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 20),
@@ -216,13 +262,19 @@ class _SellPageState extends State<SellPage> {
                                   prefixIcon: Icon(
                                     Icons.link,
                                     color:
-                                        Theme.of(context).colorScheme.outline,
+                                    Theme
+                                        .of(context)
+                                        .colorScheme
+                                        .outline,
                                   ),
                                 ),
                                 textStyle: TextStyle(
                                   fontSize: 26,
                                   fontWeight: medium,
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .primary,
                                 ),
                                 onSubmitted: (String str) {
                                   setState(() {
@@ -246,16 +298,103 @@ class _SellPageState extends State<SellPage> {
                                 children: images.map((image) {
                                   return IntrinsicWidth(
                                       child: ImageDisplayList(
-                                    link: image,
-                                    function: () {
-                                      setState(() {
-                                        images.remove(image);
-                                      });
-                                    },
-                                  ));
+                                        link: image,
+                                        function: () {
+                                          setState(() {
+                                            images.remove(image);
+                                          });
+                                        },
+                                      ));
                                 }).toList(),
                               ),
                             ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            ButtonFinish(
+                              text: 'Sell your product',
+                              function: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  Response response = await sellProduct(
+                                      inputName.text,
+                                      double.parse(inputPrice.text),
+                                      images[0],
+                                      inputDescription.text,
+                                      currentUsername.currentusername,
+                                      images);
+                                  if (response.statusCode == 201) {
+                                    setState(
+                                          () async {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          backgroundColor: Colors.green,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(20)),
+                                          content: Row(
+                                            children: [
+                                              Icon(Icons.check,
+                                                  color: Theme
+                                                      .of(context)
+                                                      .colorScheme
+                                                      .background),
+                                              Text(
+                                                'Check',
+                                                style: TextStyle(
+                                                    color: Theme
+                                                        .of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16),
+                                              ),
+                                            ],
+                                          ),
+                                        ));
+
+                                        final newProductId = int.parse(
+                                            json.decode(response.body)['id']
+                                                .toString());
+
+                                        Response userResponse = await addProductToUser(
+                                            newProductId,
+                                            currentUsername.currentusername);
+                                        if (userResponse.statusCode == 201) {
+                                          setState(() {
+                                            Beamer.of(context).beamToNamed(
+                                                '/home',
+                                                replaceRouteInformation: true);
+                                            Beamer.of(context).beamToNamed(
+                                                '/shop/product$newProductId');
+                                          });
+                                        }
+                                      },
+                                    );
+                                  } else {
+                                    print('uhoj');
+                                  }
+                                }
+                              },
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextHoverColor(
+                              text: "Cancel",
+                              size: 19,
+                              fromColor: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .outline,
+                              toColor: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .primary,
+                              function: () {
+                                Beamer.of(context).beamToNamed('/home',
+                                    replaceRouteInformation: true);
+                              },
+                            )
                           ],
                         ),
                       ),

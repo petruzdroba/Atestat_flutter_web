@@ -243,7 +243,7 @@ final routerDelegate = BeamerDelegate(
         }
       },
       '/sell': (context, state, data) {
-        if(currentUsername.currentusername != '1'){
+        if(currentUsername.currentusername != '-1'){
           return const BeamPage(
               child: SellPage(),
               title: "Sell",

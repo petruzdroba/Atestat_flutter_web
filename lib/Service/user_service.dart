@@ -50,3 +50,16 @@ Future<http.Response> deleteUser(String username, String password) {
     }),
   );
 }
+
+Future<http.Response> addProductToUser(int id, String username) {
+  return http.post(
+    Uri.parse('http://localhost:8000/AddProductIdView/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>{
+      'product_id':id,
+      'username':username
+    }),
+  );
+}

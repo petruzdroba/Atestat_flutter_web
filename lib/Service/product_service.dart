@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 Future<http.Response> getProductList() {
@@ -24,5 +26,22 @@ Future<http.Response> getPopularProduct() {
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
+  );
+}
+
+Future<http.Response> sellProduct(String name,double price, String image, String description, String author, List<String> images) {
+  return http.post(
+    Uri.parse('http://localhost:8000/ProductSellView/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>{
+      'name': name,
+      'price': price,
+      'image': image,
+      'description': description,
+      'author': author,
+      'images': images,
+    }),
   );
 }
