@@ -123,17 +123,19 @@ class AddProductIdView(APIView):
         else:
             return JsonResponse({'message': 'Product ID not provided'}, status=400)
 
-
 def getUserByUsername(request, input_username):
     try:
         user = CustomUser.objects.get(username=input_username)
-        created_product_ids = list(user.created_products.values_list('created_products_id', flat=True))
         
+        # Check if the user has any created products
+        created_products = user.created_products or []
+        created_product_ids = list(map(int, created_products))
+
         response_data = {
             'name': user.name,
             'username': user.username,
             'pfp': user.pfp,
-            'created_products_id': created_product_ids
+            'created_products': created_product_ids
         }
         return JsonResponse(response_data)
     except CustomUser.DoesNotExist:

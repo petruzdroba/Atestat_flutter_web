@@ -12,13 +12,13 @@ class PopularProductModel(models.Model):
     gif = models.CharField(max_length=255)
 
 class DetailedProductModel(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique = True)
     price = models.FloatField()
     product_id = models.IntegerField(primary_key = True)
     image = models.CharField(max_length=255)
     description = models.TextField()
     author = models.CharField(max_length=255)
-    images = models.JSONField()  # Assuming 'images' is a JSON array in the original JSON
+    images = models.JSONField()
 
     def __str__(self):
         return self.name
