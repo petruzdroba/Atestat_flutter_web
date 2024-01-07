@@ -208,6 +208,14 @@ class DeleteUserAccount(APIView):
             entered_password = data_from_frontend.get('password')
 
             if check_password(entered_password, user.password):
+
+                for product_id in user.created_products:
+                    try:
+                        product = DetailedProductModel.objects.get(product_id=product_id)
+                        product.delete()
+                    except DetailedProductModel.DoesNotExist:
+                        pass  # Product not found, move on
+
                 user.delete()
                 return Response({"message": "Account deleted successfully"}, status=status.HTTP_200_OK)
             else:
