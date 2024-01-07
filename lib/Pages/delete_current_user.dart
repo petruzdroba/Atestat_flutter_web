@@ -124,7 +124,7 @@ class _DeleteCurrentUserState extends State<DeleteCurrentUser> {
                                     Theme.of(context).colorScheme.background,
                               ),
                               Text(
-                                "I'm sure I want to delete my ${currentUsername.currentusername} account",
+                                "I'm sure I want to delete my ${currentUsername.currentusername} account and products created",
                                 style: const TextStyle(fontSize: 20),
                               ),
                               Visibility(

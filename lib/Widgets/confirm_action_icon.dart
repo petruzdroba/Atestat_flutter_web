@@ -10,7 +10,8 @@ class ConfirmActionIcon extends StatefulWidget {
       {super.key,
       required this.icon,
       required this.function,
-      required this.secondIcon, required this.color});
+      required this.secondIcon,
+      required this.color});
 
   @override
   State<ConfirmActionIcon> createState() => _ConfirmActionIconState();
@@ -23,18 +24,20 @@ class _ConfirmActionIconState extends State<ConfirmActionIcon> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if(!nrPressed){
+        if (!nrPressed) {
           setState(() {
             nrPressed = true;
             print('pressed1');
           });
-        }else {
-          setState(() {
-            widget.function();
-          });
+        } else {
+          widget.function();
         }
       },
-      child: Icon(!nrPressed ? widget.icon : widget.secondIcon, color: widget.color ,size: 25,),
+      child: Icon(
+        !nrPressed ? widget.icon : widget.secondIcon,
+        color: widget.color,
+        size: 25,
+      ),
     );
   }
 }

@@ -190,63 +190,58 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                       icon: Icons.delete,
                                       secondIcon: Icons.delete_forever,
                                       color: Colors.red,
-                                      function: () {
-                                        setState(() async {
-                                          Response productResponse =
-                                              await deleteProduct(
-                                                  widget.product.id);
-                                          if (productResponse.statusCode ==
-                                              200) {
-                                            setState(() async {
-                                              Response response =
-                                                  await removeProductFromUser(
-                                                      widget.product.id,
-                                                      currentUsername
-                                                          .currentusername);
-                                              if (response.statusCode == 200) {
-                                                setState(() {
-                                                  Beamer.of(context).beamToNamed(
-                                                      '/profile/${currentUsername.currentusername}',
-                                                      replaceRouteInformation:
-                                                          true);
-                                                });
-                                              }
-                                            });
-                                          } else {
+                                      function: () async {
+                                        Response productResponse =
+                                            await deleteProduct(
+                                                widget.product.id);
+                                        if (productResponse.statusCode == 200) {
+                                          Response response =
+                                              await removeProductFromUser(
+                                                  widget.product.id,
+                                                  currentUsername
+                                                      .currentusername);
+                                          if (response.statusCode == 200) {
                                             setState(() {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  backgroundColor: Colors.red,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20)),
-                                                  content: Row(
-                                                    children: [
-                                                      Icon(Icons.error,
+                                              Beamer.of(context).beamToNamed(
+                                                  '/home',
+                                                  replaceRouteInformation:
+                                                      true);
+
+                                            });
+                                          }
+                                        } else {
+                                          setState(() {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: Colors.red,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20)),
+                                                content: Row(
+                                                  children: [
+                                                    Icon(Icons.error,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .background),
+                                                    Text(
+                                                      'Unexpected error !',
+                                                      style: TextStyle(
                                                           color:
                                                               Theme.of(context)
                                                                   .colorScheme
-                                                                  .background),
-                                                      Text(
-                                                        'Unexpected error !',
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .background,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 16),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                                  .background,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 16),
+                                                    ),
+                                                  ],
                                                 ),
-                                              );
-                                            });
-                                          }
-                                        });
+                                              ),
+                                            );
+                                          });
+                                        }
                                       },
                                     ),
                                   ),
