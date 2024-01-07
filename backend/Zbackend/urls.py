@@ -13,5 +13,7 @@ urlpatterns = [
     path('UserLoginView/', web_views.UserLoginView.as_view(), name = 'UserLoginView'),
     path('DeleteUserAccount/', web_views.DeleteUserAccount.as_view(), name = 'DeleteUserAccount'),
     path('ProductSellView/', web_views.ProductSellView.as_view(), name = 'ProductSellView'),
-    path('AddProductIdView/', web_views.AddProductIdView.as_view(), name = 'AddProductIdView')
+    path('AddProductIdView/', web_views.AddProductIdView.as_view(), name = 'AddProductIdView'),
+    path('RemoveProductIdView/', web_views.RemoveProductIdView.as_view(), name = 'RemoveProductIdView'),
+    path('DeleteProduct/', web_views.DeleteProduct.as_view(), name = 'DeleteProduct')
 ]

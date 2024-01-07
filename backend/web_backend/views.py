@@ -123,11 +123,29 @@ class AddProductIdView(APIView):
         else:
             return JsonResponse({'message': 'Product ID not provided'}, status=400)
 
+class RemoveProductIdView(APIView):
+    def post(self, request):
+        data_from_frontend = request.data
+        try:
+            user = CustomUser.objects.get(username=data_from_frontend.get('username'))
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'message': 'User not found'}, status=404)
+
+        product_id = data_from_frontend.get('product_id')
+
+        if product_id is not None:
+            try:
+                user.remove_product(product_id)
+                return JsonResponse({'message': f'Product ID {product_id} removed from user {user.username}'}, status=200)
+            except DetailedProductModel.DoesNotExist:
+                return JsonResponse({'message': 'Product not found in user\'s list'}, status=404)
+        else:
+            return JsonResponse({'message': 'Product ID not provided'}, status=400)
+
 def getUserByUsername(request, input_username):
     try:
         user = CustomUser.objects.get(username=input_username)
         
-        # Check if the user has any created products
         created_products = user.created_products or []
         created_product_ids = list(map(int, created_products))
 
@@ -196,3 +214,18 @@ class DeleteUserAccount(APIView):
                 return Response({"error": "Incorrect password"}, status=status.HTTP_401_UNAUTHORIZED)
         except:
             return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+class DeleteProduct(APIView):
+    def post(self, request):
+        data_from_frontend = request.data
+        try:
+            product = DetailedProductModel.objects.get(product_id = data_from_frontend.get('product_id'))
+
+            product.delete();
+            return Response({"message": "Product deleted successfully"}, status=status.HTTP_200_OK)
+        except:
+            return JsonResponse({'message': 'Product not found'}, status=404)
+
+
+
+

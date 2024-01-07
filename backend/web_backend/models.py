@@ -37,5 +37,12 @@ class CustomUser(models.Model):
         self.created_products.append(int(product_id))
         self.save()
 
+    def remove_product(self, product_id):
+        if self.created_products is None:
+            self.created_products = []
+
+        self.created_products.remove(int(product_id))
+        self.save()
+
     def __str__(self):
         return self.username
