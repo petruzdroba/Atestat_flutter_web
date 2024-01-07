@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _ProductDetailedState extends State<ProductDetailed> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color:Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.background,
         child: Row(
           children: [
             SideNavigationBar(widget._menuOptions, '/shop'),
@@ -132,7 +133,9 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                           widget._productDetails.name,
                                           softWrap: true,
                                           style: GoogleFonts.mukta(
-                                              color: Theme.of(context).colorScheme.primary,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
                                               fontSize: 60,
                                               fontWeight: bold),
                                         ),
@@ -147,18 +150,27 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                             Text(
                                               'sold by   ',
                                               style: GoogleFonts.mukta(
-                                                color: Theme.of(context).colorScheme.primary,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
                                                 fontSize: 23,
                                                 fontWeight: light,
                                               ),
                                             ),
                                             TextHoverColorSize(
-                                                text:widget._productDetails.author,
-                                                size:35,
-                                                fromColor:Theme.of(context).colorScheme.primary,
-                                                toColor:Theme.of(context).colorScheme.outline,
-                                                function:() {} //Add later profile opening to seller profile
-                                                ),
+                                                text: widget
+                                                    ._productDetails.author,
+                                                size: 35,
+                                                fromColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
+                                                toColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .outline,
+                                                function: () {
+                                                  Beamer.of(context).beamToNamed(
+                                                      '/profile/${widget._productDetails.author}');
+                                                }),
                                           ],
                                         ),
                                       ),
@@ -173,7 +185,9 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                       Text(
                                         '€${widget._productDetails.price}',
                                         style: GoogleFonts.mukta(
-                                            color: Theme.of(context).colorScheme.outline,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .outline,
                                             fontSize: 30,
                                             fontWeight: semiBold),
                                       ),
@@ -219,15 +233,18 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                       padding: const EdgeInsets.only(
                                           top: 30, left: 20, right: 20),
                                       child: TextHoverColorSize(
-                                          text:widget._productDetails.description,
-                                          size:27,
-                                          fromColor:colorGray,
-                                          toColor:Theme.of(context).colorScheme.onSecondary,
+                                          text: widget
+                                              ._productDetails.description,
+                                          size: 27,
+                                          fromColor: colorGray,
+                                          toColor: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondary,
                                           function: () {
-                                        Clipboard.setData(ClipboardData(
-                                            text: widget
-                                                ._productDetails.description));
-                                      })),
+                                            Clipboard.setData(ClipboardData(
+                                                text: widget._productDetails
+                                                    .description));
+                                          })),
                                 ],
                               ),
                             ),

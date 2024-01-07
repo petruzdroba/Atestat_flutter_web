@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 import 'package:flutter_club_blaga/Widgets/profile_display.dart';
 import 'package:flutter_club_blaga/Widgets/user_product_display.dart';
@@ -22,37 +23,40 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: Theme.of(context).colorScheme.background,
-        child: Row(
-          children: [
-            SideNavigationBar(_menuOptions, '/profile'),
-            Expanded(
-              flex: 9,
-              child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 55, left: 55, right: 55, bottom: 70),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ProfileDisplay(user: widget.user),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        'Products for sale',
-                        style: GoogleFonts.mukta(),
-                      ),
-                      ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context)
-                            .copyWith(scrollbars: false),
-                        child: SingleChildScrollView(
-                          child: Column(
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          color: Theme.of(context).colorScheme.background,
+          child: Row(
+            children: [
+              SideNavigationBar(_menuOptions, '/profile'),
+              Expanded(
+                flex: 9,
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 55, left: 55, right: 55, bottom: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ProfileDisplay(user: widget.user),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          'Products for sale:',
+                          style: GoogleFonts.mukta(
+                            fontSize: 30,
+                            fontWeight: medium,
+                            color: Theme.of(context).colorScheme.primary
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView(
+                            scrollDirection: Axis.vertical,
                             children: [
                               const SizedBox(
-                                height: 10,
+                                height: 15,
                               ),
                               UserProductDisplay(
                                 productIds: widget.user.created_products_id,
@@ -60,11 +64,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             ],
                           ),
                         ),
-                      ),
-                    ],
-                  )),
-            ),
-          ],
+                      ],
+                    ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

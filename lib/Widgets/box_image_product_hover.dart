@@ -3,8 +3,11 @@ import 'dart:math';
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Class/Product.dart';
+import 'package:flutter_club_blaga/Service/product_service.dart';
+import 'package:flutter_club_blaga/Service/user_service.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 
 import '../Class/current_username.dart';
 import 'Style/assets/fonts/weights.dart';
@@ -46,25 +49,13 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
           height: !didHover ? 250 : 275,
           decoration: BoxDecoration(
             color: !didHover
-                ? Theme
-                .of(context)
-                .colorScheme
-                .background
-                : Theme
-                .of(context)
-                .colorScheme
-                .onPrimary,
+                ? Theme.of(context).colorScheme.background
+                : Theme.of(context).colorScheme.onPrimary,
             border: Border.all(
                 width: !didHover ? 1.0 : 2.0,
                 color: didHover == false
-                    ? Theme
-                    .of(context)
-                    .colorScheme
-                    .primary
-                    : Theme
-                    .of(context)
-                    .colorScheme
-                    .outline),
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.outline),
           ),
           child: Stack(
             children: [
@@ -90,21 +81,15 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                         begin: Alignment.centerRight,
                         end: Alignment.centerLeft,
                         stops: [
-                          !didHover ? 0.45 : 0.50,
-                          1.0
-                        ],
+                      !didHover ? 0.45 : 0.50,
+                      1.0
+                    ],
                         colors: [
-                          !didHover
-                              ? Theme
-                              .of(context)
-                              .colorScheme
-                              .background
-                              : Theme
-                              .of(context)
-                              .colorScheme
-                              .onPrimary,
-                          Colors.transparent
-                        ])),
+                      !didHover
+                          ? Theme.of(context).colorScheme.background
+                          : Theme.of(context).colorScheme.onPrimary,
+                      Colors.transparent
+                    ])),
                 child: Row(
                   children: [
                     const Expanded(flex: 7, child: SizedBox()),
@@ -123,14 +108,8 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 duration: const Duration(milliseconds: 220),
                                 style: GoogleFonts.mukta(
                                   color: !didHover
-                                      ? Theme
-                                      .of(context)
-                                      .colorScheme
-                                      .primary
-                                      : Theme
-                                      .of(context)
-                                      .colorScheme
-                                      .outline,
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.outline,
                                   fontSize: !didHover ? 20 : 22,
                                   fontWeight: !didHover ? medium : extraBold,
                                   decoration: !didHover
@@ -150,21 +129,14 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 style: GoogleFonts.mukta(
                                   color: !didHover
                                       ? colorGray
-                                      : Theme
-                                      .of(context)
-                                      .colorScheme
-                                      .primary,
+                                      : Theme.of(context).colorScheme.primary,
                                   fontSize: !didHover ? 14 : 15,
                                   height: 1.0,
                                 ),
                                 child: Text(
                                   didHover
-                                      ? '${widget.product.description.substring(
-                                      0, min(220,
-                                      widget.product.description.length))}(...)'
-                                      : '${widget.product.description.substring(
-                                      0, min(130,
-                                      widget.product.description.length))}(...)',
+                                      ? '${widget.product.description.substring(0, min(220, widget.product.description.length))}(...)'
+                                      : '${widget.product.description.substring(0, min(130, widget.product.description.length))}(...)',
                                   softWrap: true,
                                 ),
                               ),
@@ -175,14 +147,10 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 duration: const Duration(milliseconds: 220),
                                 style: GoogleFonts.mukta(
                                   color: !didHover
-                                      ? Theme
-                                      .of(context)
-                                      .colorScheme
-                                      .outline
-                                      : Theme
-                                      .of(context)
-                                      .colorScheme
-                                      .onSecondary,
+                                      ? Theme.of(context).colorScheme.outline
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary,
                                   fontSize: !didHover ? 18 : 16,
                                   fontWeight: !didHover ? medium : bold,
                                   height: 0.9,
@@ -196,23 +164,24 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                 height: 10,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   AnimatedDefaultTextStyle(
                                       style: GoogleFonts.mukta(
                                         color: !didHover
-                                            ? Theme
-                                            .of(context)
-                                            .colorScheme
-                                            .primary
-                                            : Theme
-                                            .of(context)
-                                            .colorScheme
-                                            .outline,
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .primary
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .outline,
                                         fontSize: !didHover ? 16 : 20,
-                                        fontWeight: !didHover ? medium : semiBold,
+                                        fontWeight:
+                                            !didHover ? medium : semiBold,
                                       ),
-                                      duration: const Duration(milliseconds: 500),
+                                      duration:
+                                          const Duration(milliseconds: 500),
                                       child: Text('€${widget.product.price}')),
                                   Visibility(
                                     visible: widget.product.author ==
@@ -222,8 +191,61 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                                       secondIcon: Icons.delete_forever,
                                       color: Colors.red,
                                       function: () {
-                                        setState(() {
-                                          print('deleted');
+                                        setState(() async {
+                                          Response productResponse =
+                                              await deleteProduct(
+                                                  widget.product.id);
+                                          if (productResponse.statusCode ==
+                                              200) {
+                                            setState(() async {
+                                              Response response =
+                                                  await removeProductFromUser(
+                                                      widget.product.id,
+                                                      currentUsername
+                                                          .currentusername);
+                                              if (response.statusCode == 200) {
+                                                setState(() {
+                                                  Beamer.of(context).beamToNamed(
+                                                      '/profile/${currentUsername.currentusername}',
+                                                      replaceRouteInformation:
+                                                          true);
+                                                });
+                                              }
+                                            });
+                                          } else {
+                                            setState(() {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  backgroundColor: Colors.red,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  content: Row(
+                                                    children: [
+                                                      Icon(Icons.error,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .background),
+                                                      Text(
+                                                        'Unexpected error !',
+                                                        style: TextStyle(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .background,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 16),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                          }
                                         });
                                       },
                                     ),

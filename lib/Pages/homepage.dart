@@ -143,7 +143,10 @@ class _HomePageState extends State<HomePage> {
                                           .colorScheme
                                           .background,
                                       function:
-                                          () {} //Add later profile opening to seller profile
+                                          () {
+                                            Beamer.of(context).beamToNamed(
+                                            '/profile/${widget._popularProduct.author}');
+                                      }
                                       ),
                                 ),
                               ],
