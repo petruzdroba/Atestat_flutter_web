@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 import 'package:flutter_club_blaga/Widgets/profile_display.dart';
+import 'package:flutter_club_blaga/Widgets/user_product_display.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../Class/MenuOption.dart';
 import '../Class/user.dart';
 
 class ProfilePage extends StatefulWidget {
   final User user;
+
   const ProfilePage({super.key, required this.user});
 
   @override
@@ -35,6 +38,29 @@ class _ProfilePageState extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ProfileDisplay(user: widget.user),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        'Products for sale',
+                        style: GoogleFonts.mukta(),
+                      ),
+                      ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              UserProductDisplay(
+                                productIds: widget.user.created_products_id,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   )),
             ),

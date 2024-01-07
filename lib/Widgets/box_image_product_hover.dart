@@ -6,7 +6,9 @@ import 'package:flutter_club_blaga/Class/Product.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Class/current_username.dart';
 import 'Style/assets/fonts/weights.dart';
+import 'confirm_action_icon.dart';
 
 class BoxImageProductHover extends StatefulWidget {
   final Product product;
@@ -193,22 +195,41 @@ class _BoxImageProductHoverState extends State<BoxImageProductHover> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              AnimatedDefaultTextStyle(
-                                  style: GoogleFonts.mukta(
-                                    color: !didHover
-                                        ? Theme
-                                        .of(context)
-                                        .colorScheme
-                                        .primary
-                                        : Theme
-                                        .of(context)
-                                        .colorScheme
-                                        .outline,
-                                    fontSize: !didHover ? 16 : 20,
-                                    fontWeight: !didHover ? medium : semiBold,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  AnimatedDefaultTextStyle(
+                                      style: GoogleFonts.mukta(
+                                        color: !didHover
+                                            ? Theme
+                                            .of(context)
+                                            .colorScheme
+                                            .primary
+                                            : Theme
+                                            .of(context)
+                                            .colorScheme
+                                            .outline,
+                                        fontSize: !didHover ? 16 : 20,
+                                        fontWeight: !didHover ? medium : semiBold,
+                                      ),
+                                      duration: const Duration(milliseconds: 500),
+                                      child: Text('€${widget.product.price}')),
+                                  Visibility(
+                                    visible: widget.product.author ==
+                                        currentUsername.currentusername,
+                                    child: ConfirmActionIcon(
+                                      icon: Icons.delete,
+                                      secondIcon: Icons.delete_forever,
+                                      color: Colors.red,
+                                      function: () {
+                                        setState(() {
+                                          print('deleted');
+                                        });
+                                      },
+                                    ),
                                   ),
-                                  duration: const Duration(milliseconds: 500),
-                                  child: Text('€${widget.product.price}'))
+                                ],
+                              )
                             ],
                           ),
                         ))

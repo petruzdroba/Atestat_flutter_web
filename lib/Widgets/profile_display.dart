@@ -79,7 +79,7 @@ class _ProfileDisplayState extends State<ProfileDisplay> {
             ),
           ],
         ),
-        const OptionBuilder(),
+        Visibility(visible:widget.user.username == currentUsername.currentusername,child: const OptionBuilder()),
       ],
     );
   }
