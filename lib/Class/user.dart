@@ -36,8 +36,8 @@ class User {
       json['username'] as String,
       json['pfp'] as String,
       json['name'] as String,
-      json['created_products_id'] != null
-          ? List<int>.from(json['created_products_id'])
+      json['created_products'] != null
+          ? List<int>.from(json['created_products'])
           : <int>[],
     );
   }

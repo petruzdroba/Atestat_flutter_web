@@ -32,6 +32,7 @@ class _SellPageState extends State<SellPage> {
 
   final RegExp _doubleRegExp = RegExp(r'^[0-9]+([.][0-9]+)?$');
   List<String> images = [];
+  bool productExists = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,12 +73,19 @@ class _SellPageState extends State<SellPage> {
                                   flex: 7,
                                   child: TextFormField(
                                     controller: inputName,
-                                    validator: MultiValidator([
-                                      MinLengthValidator(5,
-                                          errorText: 'Name too short'),
-                                      MaxLengthValidator(30,
-                                          errorText: 'Name too long')
-                                    ]),
+                                    validator: (name){
+                                      if(name!.isEmpty){
+                                        return 'Required field';
+                                      }
+                                      else if(name.length < 5){
+                                        return 'Name is too short';
+                                      }else if(name.length > 30){
+                                        return 'Name is too long';
+                                      }else if(productExists == true){
+                                        return 'Product with the same name exists already';
+                                      }
+                                      return null;
+                                    },
                                     style: TextStyle(
                                       fontSize: 26,
                                       fontWeight: medium,
@@ -371,7 +379,12 @@ class _SellPageState extends State<SellPage> {
                                       },
                                     );
                                   } else {
-                                    print('uhoj');
+                                    setState(() {
+                                      productExists = true;
+                                      _formKey.currentState!.validate();
+                                      productExists=false;
+                                      inputName.clear();
+                                    });
                                   }
                                 }
                               },
