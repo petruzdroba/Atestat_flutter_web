@@ -234,6 +234,25 @@ class DeleteProduct(APIView):
         except:
             return JsonResponse({'message': 'Product not found'}, status=404)
 
+class EditUser(APIView):
+    def put(self, request):
+        check_username = request.data.get('checkUsername')
+
+        try:
+            user = CustomUser.objects.get(username=check_username)
+
+            # Update the fields based on the data from the request
+            user.name = request.data.get('name', user.name)
+            user.username = request.data.get('username', user.username)
+            user.pfp = request.data.get('pfp', user.pfp)
+
+            user.save()
+            return Response({"message": "User updated successfully"}, status=status.HTTP_200_OK)
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'message': 'User not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'message': f'An error occurred: {str(e)}'}, status=500)
+
 
 
 
