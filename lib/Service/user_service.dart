@@ -76,3 +76,18 @@ Future<http.Response> removeProductFromUser(int id, String username) {
     }),
   );
 }
+
+Future<http.Response> editUser(String username, String newName, String newPfp) {
+  return http.put(
+    Uri.parse('http://localhost:8000/EditUser/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'checkUsername':username,
+      'name':newName,
+      'pfp':newPfp,
+    }),
+  );
+}
+

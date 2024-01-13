@@ -108,7 +108,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             autocorrect: false,
                             decoration: InputDecoration(
-                              hintText: 'Username',
+                              hintText: 'Username - cannot be edited later !',
                               hintStyle: TextStyle(
                                 fontSize: 25,
                                 fontWeight: regular,

@@ -27,7 +27,6 @@ class _ConfirmActionIconState extends State<ConfirmActionIcon> {
         if (!nrPressed) {
           setState(() {
             nrPressed = true;
-            print('pressed1');
           });
         } else {
           widget.function();

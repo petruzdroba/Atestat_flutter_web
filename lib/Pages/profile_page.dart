@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_club_blaga/Class/current_username.dart';
 import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
 import 'package:flutter_club_blaga/Widgets/navigation_bar.dart';
 import 'package:flutter_club_blaga/Widgets/profile_display.dart';
@@ -34,38 +35,48 @@ class _ProfilePageState extends State<ProfilePage> {
               Expanded(
                 flex: 9,
                 child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 55, left: 55, right: 55, bottom: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ProfileDisplay(user: widget.user),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        Text(
-                          'Products for sale:',
-                          style: GoogleFonts.mukta(
+                  padding: const EdgeInsets.only(
+                      top: 55, left: 55, right: 55, bottom: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ProfileDisplay(user: widget.user),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        'Products for sale:',
+                        style: GoogleFonts.mukta(
                             fontSize: 30,
                             fontWeight: medium,
-                            color: Theme.of(context).colorScheme.primary
-                          ),
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      Expanded(
+                        child: ListView(
+                          scrollDirection: Axis.vertical,
+                          children: [
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            widget.user.created_products_id.isNotEmpty
+                                ? UserProductDisplay(
+                                    productIds: widget.user.created_products_id,
+                                  )
+                                : Center(
+                                    child: Text(
+                                      currentUsername.currentusername == widget.user.username ? "You don't have anything up for sale !" : 'No products for sale !',
+                                      style: GoogleFonts.mukta(
+                                        fontSize: 22,
+                                        color: Theme.of(context).colorScheme.primary,
+                                        fontWeight: regular,
+                                      ),
+                                    ),
+                                  ),
+                          ],
                         ),
-                        Expanded(
-                          child: ListView(
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              UserProductDisplay(
-                                productIds: widget.user.created_products_id,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

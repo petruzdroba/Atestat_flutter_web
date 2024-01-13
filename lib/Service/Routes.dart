@@ -160,11 +160,29 @@ final routerDelegate = BeamerDelegate(
         }
       },
       '/edit_user':(context,state,data){
-        if(currentUsername.currentusername != '1'){
-          return const BeamPage(
-              child: EditUserPage(),
-              title: "Edit ser",
-              key: ValueKey("edit_user")
+        if(currentUsername.currentusername != '-1'){
+          return BeamPage(
+              title: "Edit User",
+              key: const ValueKey("edit_user"),
+            child: FutureBuilder(
+              future: getUserbyUsername(currentUsername.currentusername),
+                builder: (context, AsyncSnapshot<Response> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const LoadingBarCube(75.0, 1000);
+                  } else if (snapshot.hasError) {
+                    return const ErrorPage('Error - Loading user!');
+                  } else {
+                    final response = snapshot.data;
+                    if (response?.statusCode == 200) {
+                      final jsonResponse = json.decode(response!.body);
+                      final user = User.fromJson(jsonResponse);
+                      return EditUserPage(user: user);
+                    } else {
+                      return ErrorPage('Error ${response!.statusCode}');
+                    }
+                  }
+                }
+            )
           );
         }
         else{
