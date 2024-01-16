@@ -9,8 +9,8 @@ from django.db.models import Max
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import TestModel, PopularProductModel, DetailedProductModel, CustomUser
-from .serializers import CustomUserSerializer, DetailedProductSerializer
+from .models import TestModel, PopularProductModel, DetailedProductModel, CustomUser, UserLists
+from .serializers import CustomUserSerializer, DetailedProductSerializer, UserListSerializer
 
 
 @csrf_exempt  
@@ -173,6 +173,10 @@ class UserRegistrationView(APIView):
                 username=data_from_frontend.get('username'),
                 password=hashed_password,
                 pfp='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Gru9G3h6HXfS6f2F9S0gTm49NAyDwU2jiQ&usqp=CAU',
+            )
+
+            user_list = UserLists.objects.create(
+                username = data_from_frontend.get('username')
             )
 
             serializer = CustomUserSerializer(new_user)

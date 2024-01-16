@@ -46,3 +46,12 @@ class CustomUser(models.Model):
 
     def __str__(self):
         return self.username
+
+class UserLists(models.Model):
+    username = models.CharField(max_length=255, unique=True, primary_key=True)
+    favorite = models.JSONField(blank = True, null = True)
+    friends = models.JSONField(blank = True, null = True)
+    cart = models.JSONField(blank = True, null = True)
+
+    def __str__(self):
+        return self.username

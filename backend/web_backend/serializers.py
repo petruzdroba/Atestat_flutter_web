@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser, DetailedProductModel
+from .models import CustomUser, DetailedProductModel, UserLists
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,4 +34,12 @@ class DetailedProductSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         self._is_valid(data)
+        return data
+
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserLists
+        fiels = ['username', 'favorite', 'friends', 'cart']
+
+    def validate(self, data):
         return data
