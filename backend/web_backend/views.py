@@ -142,6 +142,28 @@ class RemoveProductIdView(APIView):
         else:
             return JsonResponse({'message': 'Product ID not provided'}, status=400)
 
+class AddFavoriteProduct(APIView):
+    def post(self,request):
+        data_from_frontend = request.data
+
+        try:
+            user = UserLists.objects.get(username=data_from_frontend.get('username'))
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'message': 'User not found'}, status=404)
+
+        product_id = data_from_frontend.get('product_id')
+
+        if DetailedProductModel.does_exist(product_id) and product_id is not None:
+            try:
+                user.add_favorite(product_id)
+                return Json({'message':'product added'}, status = 200)
+            except DetailedProductModel.DoesNotExist:
+                return JsonResponse({'message': 'Product not found in user\'s list'}, status=404) 
+        else:
+            return JsonResponse({'message': 'Product ID not provided'}, status=400)
+
+
+
 def getUserByUsername(request, input_username):
     try:
         user = CustomUser.objects.get(username=input_username)

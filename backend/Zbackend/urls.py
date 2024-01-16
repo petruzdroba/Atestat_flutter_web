@@ -15,6 +15,7 @@ urlpatterns = [
     path('ProductSellView/', web_views.ProductSellView.as_view(), name = 'ProductSellView'),
     path('AddProductIdView/', web_views.AddProductIdView.as_view(), name = 'AddProductIdView'),
     path('RemoveProductIdView/', web_views.RemoveProductIdView.as_view(), name = 'RemoveProductIdView'),
+    path('AddFavoriteProduct/', web_views.AddFavoriteProduct.as_view(), name = 'AddFavoriteProduct'),
     path('DeleteProduct/', web_views.DeleteProduct.as_view(), name = 'DeleteProduct'),
     path('EditUser/', web_views.EditUser.as_view(), name = 'EditUser')
 ]

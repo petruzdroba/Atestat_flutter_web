@@ -20,6 +20,15 @@ class DetailedProductModel(models.Model):
     author = models.CharField(max_length=255)
     images = models.JSONField()
 
+    @classmethod
+    def does_exist(cls, product_id):
+        try:
+            # Attempt to get an instance with the provided product_id
+            cls.objects.get(product_id=product_id)
+            return True
+        except cls.DoesNotExist:
+            return False
+
     def __str__(self):
         return self.name
 
@@ -52,6 +61,30 @@ class UserLists(models.Model):
     favorite = models.JSONField(blank = True, null = True)
     friends = models.JSONField(blank = True, null = True)
     cart = models.JSONField(blank = True, null = True)
+
+    def add_favorite(self, product_id):
+        if self.favorite is None:
+            self.favorite = []
+        self.favorite.append(int(product_id))
+        self.save()
+
+    def remove_favorite(self, product_id):
+        if self.favorite is None:
+            self.favorite = []
+        self.favorite.remove(int(product_id))
+        self.save()
+
+    def add_friends(self, username):
+        if self.friends is None:
+            self.friends = []
+        self.friends.append(CharField(username))
+        self.save()
+
+    def remove_friends(self, username):
+        if self.friends is None:
+            self.friends = []
+        self.friends.remove(CharField(username))
+        self.save()
 
     def __str__(self):
         return self.username
