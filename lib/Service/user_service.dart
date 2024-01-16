@@ -64,6 +64,19 @@ Future<http.Response> addProductToUser(int id, String username) {
   );
 }
 
+Future<http.Response> addProductToFavorite(int id, String username) {
+  return http.post(
+    Uri.parse('http://localhost:8000/AddFavoriteProduct/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>{
+      'product_id':id,
+      'username':username
+    }),
+  );
+}
+
 Future<http.Response> removeProductFromUser(int id, String username) {
   return http.post(
     Uri.parse('http://localhost:8000/RemoveProductIdView/'),

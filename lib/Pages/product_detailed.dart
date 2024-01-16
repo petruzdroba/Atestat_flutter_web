@@ -4,12 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_club_blaga/Class/ProductDetails.dart';
+import 'package:flutter_club_blaga/Class/current_username.dart';
+import 'package:flutter_club_blaga/Service/user_service.dart';
 import 'package:flutter_club_blaga/Widgets/Style/assets/fonts/weights.dart';
 import 'package:flutter_club_blaga/Widgets/Style/colors_style.dart';
 import 'package:flutter_club_blaga/Widgets/button_icon_hover_tap.dart';
 import 'package:flutter_club_blaga/Widgets/icon_hover_action.dart';
 import 'package:flutter_club_blaga/Widgets/text_hover_color_size.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../Class/MenuOption.dart';
@@ -198,10 +201,10 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                           ButtonIconHoverTap(
                                               Icons.favorite_border,
                                               Icons.favorite,
-                                              Colors.red, () {
-                                            if (kDebugMode) {
-                                              print('Like');
-                                            }
+                                              Colors.red, () async{
+                                                if(currentUsername.currentusername != '-1'){
+                                                  Response response = await addProductToFavorite(widget._productDetails.id, currentUsername.currentusername);
+                                                }
                                           }),
                                           const SizedBox(
                                             width: 10,
