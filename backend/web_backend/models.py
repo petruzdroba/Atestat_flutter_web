@@ -23,7 +23,6 @@ class DetailedProductModel(models.Model):
     @classmethod
     def does_exist(cls, product_id):
         try:
-            # Attempt to get an instance with the provided product_id
             cls.objects.get(product_id=product_id)
             return True
         except cls.DoesNotExist:
@@ -61,6 +60,13 @@ class UserLists(models.Model):
     favorite = models.JSONField(blank = True, null = True)
     friends = models.JSONField(blank = True, null = True)
     cart = models.JSONField(blank = True, null = True)
+
+    @classmethod
+    def get_user_by_username(cls, username):
+        try:
+            return cls.objects.get(username=username)
+        except cls.DoesNotExist:
+            return None
 
     def add_favorite(self, product_id):
         if self.favorite is None:

@@ -156,12 +156,43 @@ class AddFavoriteProduct(APIView):
         if DetailedProductModel.does_exist(product_id) and product_id is not None:
             try:
                 user.add_favorite(product_id)
-                return Json({'message':'product added'}, status = 200)
+                return JsonResponse({'message':'product added'}, status = 200)
             except DetailedProductModel.DoesNotExist:
                 return JsonResponse({'message': 'Product not found in user\'s list'}, status=404) 
         else:
             return JsonResponse({'message': 'Product ID not provided'}, status=400)
 
+class RemoveFavoriteProduct(APIView):
+    def post(self, request):
+        data_from_frontend = request.data
+
+        try:
+            user = UserLists.objects.get(username = data_from_frontend.get('username'))
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'message': 'User not found'}, status=404)
+        product_id = data_from_frontend.get('product_id')
+
+        if DetailedProductModel.does_exist(product_id) and product_id is not None:
+            try:
+                user.remove_favorite(product_id)
+                return JsonResponse({'message':'product added'}, status = 200)
+            except DetailedProductModel.DoesNotExist:
+                return JsonResponse({'message': 'Product not found in user\'s list'}, status=404) 
+        else:
+            return JsonResponse({'message': 'Product ID not provided'}, status=400)
+
+class getFavoriteProductList(APIView):
+    def post(self, request):
+        data_from_frontend = request.data
+
+        try:
+            user = UserLists.objects.get(username=data_from_frontend.get('username'))
+            favorite_list = user.favorite
+            if favorite_list is None:
+                return JsonResponse({'message':'List empty'}, status=204)
+            return JsonResponse({'favorite_list': favorite_list})
+        except ObjectDoesNotExist:
+            return JsonResponse({'message': 'User not found'}, status=404)
 
 
 def getUserByUsername(request, input_username):
