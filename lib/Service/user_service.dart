@@ -90,6 +90,18 @@ Future<http.Response> removeProductFromFavorite(int id, String username) {
   );
 }
 
+Future<http.Response> getFavoriteList(String username) {
+  return http.post(
+    Uri.parse('http://localhost:8000/GetFavoriteList/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'username':username
+    }),
+  );
+}
+
 Future<http.Response> removeProductFromUser(int id, String username) {
   return http.post(
     Uri.parse('http://localhost:8000/RemoveProductIdView/'),

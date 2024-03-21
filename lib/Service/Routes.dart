@@ -37,7 +37,7 @@ final routerDelegate = BeamerDelegate(
       '/home': (context, state, data) {
         return BeamPage(
           key: const ValueKey("home_page"),
-          title: 'Chief Sosa',
+          title: 'LILIAC',
           child: FutureBuilder(
             future: getPopularProduct(),
             builder: (context, AsyncSnapshot<Response> snapshot) {

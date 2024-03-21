@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:beamer/beamer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
@@ -201,10 +203,139 @@ class _ProductDetailedState extends State<ProductDetailed> {
                                           ButtonIconHoverTap(
                                               Icons.favorite_border,
                                               Icons.favorite,
-                                              Colors.red, () async{
-                                                if(currentUsername.currentusername != '-1'){
-                                                  Response response = await addProductToFavorite(widget._productDetails.id, currentUsername.currentusername);
+                                              Colors.red, () async {
+                                            if (currentUsername
+                                                    .currentusername !=
+                                                '-1') {
+                                              Response responseList =
+                                                  await getFavoriteList(
+                                                      currentUsername
+                                                          .currentusername);
+                                              if (responseList.statusCode ==
+                                                  204) {
+                                                Response response =
+                                                    await addProductToFavorite(
+                                                        widget
+                                                            ._productDetails.id,
+                                                        currentUsername
+                                                            .currentusername);
+                                                if(response.statusCode != 200){
+                                                  setState(() {
+                                                    ScaffoldMessenger.of(context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        backgroundColor: Colors.red,
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(20)),
+                                                        content: Row(
+                                                          children: [
+                                                            Icon(Icons.check,
+                                                                color: Theme.of(context)
+                                                                    .colorScheme
+                                                                    .background),
+                                                            Text(
+                                                              'Error while trying to add product to favorites',
+                                                              style: TextStyle(
+                                                                  color: Theme.of(context)
+                                                                      .colorScheme
+                                                                      .background,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  fontSize: 16),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    );
+                                                  });
                                                 }
+                                              } else {
+                                                Map<String, dynamic>
+                                                    responseBody = jsonDecode(
+                                                        responseList.body);
+
+                                                List<int> favorites =
+                                                    List<int>.from(responseBody[
+                                                        'favorite_list']);
+
+                                                if (favorites.contains(widget
+                                                    ._productDetails.id)) {
+                                                  Response remove =
+                                                      await removeProductFromFavorite(
+                                                          widget._productDetails
+                                                              .id,
+                                                          currentUsername
+                                                              .currentusername);
+                                                  if(remove.statusCode != 200){
+                                                    setState(() {
+                                                      ScaffoldMessenger.of(context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          backgroundColor: Colors.red,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(20)),
+                                                          content: Row(
+                                                            children: [
+                                                              Icon(Icons.check,
+                                                                  color: Theme.of(context)
+                                                                      .colorScheme
+                                                                      .background),
+                                                              Text(
+                                                                'Error while trying to remove product to favorites',
+                                                                style: TextStyle(
+                                                                    color: Theme.of(context)
+                                                                        .colorScheme
+                                                                        .background,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    fontSize: 16),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    });
+                                                  }
+                                                } else {
+                                                  Response response =
+                                                      await addProductToFavorite(
+                                                          widget._productDetails
+                                                              .id,
+                                                          currentUsername
+                                                              .currentusername);
+                                                  if(response.statusCode != 200){
+                                                    setState(() {
+                                                      ScaffoldMessenger.of(context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          backgroundColor: Colors.red,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(20)),
+                                                          content: Row(
+                                                            children: [
+                                                              Icon(Icons.check,
+                                                                  color: Theme.of(context)
+                                                                      .colorScheme
+                                                                      .background),
+                                                              Text(
+                                                                'Error while trying to add product to favorites',
+                                                                style: TextStyle(
+                                                                    color: Theme.of(context)
+                                                                        .colorScheme
+                                                                        .background,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    fontSize: 16),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    });
+                                                  }
+                                                }
+                                              }
+                                            }
                                           }),
                                           const SizedBox(
                                             width: 10,
