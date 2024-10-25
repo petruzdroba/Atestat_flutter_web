@@ -1,16 +1,5 @@
-# flutter_club_blaga
+# Atestat Flutter Zdroba Petru - Liceul teoretic "Lucian Blaga"
 
-A new Flutter project.
+Magazin web + django data base and backend
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+this README was changed using the fork method and pull request on GitHub <3
